@@ -18,6 +18,7 @@ import { loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function LoginForm() {
   const form = useForm({
@@ -46,6 +47,10 @@ export default function LoginForm() {
       const res = await loginUser(data);
       if (res?.success) {
         toast.success(res?.message);
+        // setTimeout(()=>{
+        //   if 
+        //   redirect('')
+        // }, 2000)
       } else {
         toast.error(res?.message);
       }

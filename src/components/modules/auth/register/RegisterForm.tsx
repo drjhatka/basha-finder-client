@@ -10,21 +10,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import Logo from "@/app/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/AuthService";
 import { toast } from "sonner";
+import Select from "react-select/base";
 
 export default function RegisterForm() {
+  const roleOptions = [
+    { value: 'tenant', label: 'Tenant' },
+    { value: 'landlord', label: 'Landlord' },
+  ];
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
+  const {register, control} =form;
 
   const {
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = form;
 
   const password = form.watch("password");
@@ -33,9 +39,9 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const newUser = {name:data.name, email:data.email, password:data.password  }
+      const newUser = {name:data.name, email:data.email, password:data.password, role:data.role  }
       const res = await registerUser(newUser);
-      console.log('res', res, data)
+      console.log('res', res)
       if (res?.success) {
         toast.success(res?.message);
       } else {
@@ -47,7 +53,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
+    <div className="border-2 border-gray-300 rounded-xl bg-slate-100 shadow-2xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
         <Logo />
         <div>
@@ -58,13 +64,13 @@ export default function RegisterForm() {
         </div>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="py-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
+              <FormItem className="">
+                <FormLabel className="text-red-500 font-semibold"  >Name</FormLabel>
                 <FormControl>
                   <Input {...field} value={field.value || ""} />
                 </FormControl>
@@ -85,6 +91,17 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
+          
+          <div>
+        <label htmlFor="role">Role</label>
+            <select {...register('role')} name="role" id="role">
+              <option value="tenant">Tenant</option>
+              <option value="landlord">Landlord</option>
+            </select>
+        
+      </div>
+
+     
           <FormField
             control={form.control}
             name="password"
@@ -113,9 +130,10 @@ export default function RegisterForm() {
                 ) : (
                   <FormMessage />
                 )}
-              </FormItem>
+              </FormItem>  
             )}
           />
+          
 
           <Button
             disabled={passwordConfirm && password !== passwordConfirm}
