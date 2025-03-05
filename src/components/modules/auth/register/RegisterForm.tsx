@@ -53,7 +53,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl bg-slate-100 shadow-2xl flex-grow max-w-md w-full p-5">
+    <div className="border-2 rounded-xl bg-slate-100 shadow-2xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
         <Logo />
         <div>
@@ -70,7 +70,7 @@ export default function RegisterForm() {
             name="name"
             render={({ field }) => (
               <FormItem className="">
-                <FormLabel className="text-red-500 font-semibold"  >Name</FormLabel>
+                <FormLabel className="text-red-500 mb-4 font-semibold"  >Name</FormLabel>
                 <FormControl>
                   <Input {...field} value={field.value || ""} />
                 </FormControl>
@@ -83,7 +83,7 @@ export default function RegisterForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-red-600 font-semibold">Email</FormLabel>
                 <FormControl>
                   <Input type="email" {...field} value={field.value || ""} />
                 </FormControl>
@@ -92,9 +92,9 @@ export default function RegisterForm() {
             )}
           />
           
-          <div>
-        <label htmlFor="role">Role</label>
-            <select {...register('role')} name="role" id="role">
+          <div className=" flex items-center gap-5 mb-2 mt-2">
+        <label htmlFor="role" className="text-red-600 font-semibold">Select Role</label>
+            <select required {...register('role')} className="py-2 border-2 shadow-md border-green-700 text-red-600 font-semibold w-64 text-sm text-center" name="role" id="role">
               <option value="tenant">Tenant</option>
               <option value="landlord">Landlord</option>
             </select>
@@ -107,7 +107,7 @@ export default function RegisterForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-red-600 font-semibold">Password</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} value={field.value || ""} />
                 </FormControl>

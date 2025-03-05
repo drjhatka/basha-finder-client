@@ -1,5 +1,4 @@
 "use client";
-import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,7 +13,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import Logo from "@/app/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
+import { getCurrentUser, loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
@@ -47,14 +46,17 @@ export default function LoginForm() {
       const res = await loginUser(data);
       if (res?.success) {
         toast.success(res?.message);
-        // setTimeout(()=>{
-        //   if 
-        //   redirect('')
-        // }, 2000)
-      } else {
-        toast.error(res?.message);
-      }
-    } catch (err: any) {
+        const currentUser = await getCurrentUser()
+        
+        if(currentUser.role==='tenant'){
+            setTimeout(()=>{
+            redirect('tenant/dashboard')
+        }, 2000)} 
+        else {
+          toast.error(res?.message);
+        }
+      } 
+    }catch (err: any) {
       console.error(err);
     }
   };
