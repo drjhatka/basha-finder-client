@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default function LoginForm() {
   const form = useForm({
@@ -50,7 +51,8 @@ export default function LoginForm() {
         
         if(currentUser.role==='tenant'){
             setTimeout(()=>{
-            redirect('tenant/dashboard')
+              const router = useRouter(); // Initialize the router
+              router.push('tenant/dashboard');
         }, 2000)} 
         else {
           toast.error(res?.message);
