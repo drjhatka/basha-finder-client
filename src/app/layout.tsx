@@ -3,6 +3,10 @@ import {Geist, Geist_Mono, Roboto} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Providers from "@/providers/Providers";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {Provider} from "react-redux";
+import {store} from "@/app/redux/store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
+      
+      <Providers>
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistSans.variable}  antialiased`}
@@ -39,6 +44,7 @@ export default function RootLayout({
           {children}
         </body>
       </html>
-    </Providers>
+      </Providers>
+
   );
 }
