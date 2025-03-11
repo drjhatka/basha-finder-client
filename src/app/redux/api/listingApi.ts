@@ -1,12 +1,11 @@
 "use client"
 import { emptySplitApi } from './baseApi'
-import {listingSlice} from "@/app/redux/actions/listingSlice";
 
 export const listingApi = emptySplitApi.injectEndpoints({
     endpoints: (build) => ({
         createListing: build.mutation({
             query:(body)=>({
-                url:'listing',
+                url:'/rental',
                 method:'POST',
                 body
                 //credentials:'same-origin',
@@ -18,4 +17,4 @@ export const listingApi = emptySplitApi.injectEndpoints({
 })
 
 export const { useCreateListingMutation } = listingApi
-export default listingSlice.reducer;
+export default listingApi.reducer;

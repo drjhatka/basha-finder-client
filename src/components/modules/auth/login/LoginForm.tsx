@@ -16,15 +16,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getCurrentUser, loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
-import { useState } from "react";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
+import { useState} from "react";
+import { useRouter } from "next/navigation";
+import {useAppDispatch} from "@/app/redux/hooks";
+import {setUser} from "@/app/redux/actions/authSlice";
 
 export default function LoginForm() {
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
-
+  const dispatch = useAppDispatch()
   const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
 
   const {
@@ -41,27 +42,46 @@ export default function LoginForm() {
       console.error(err);
     }
   };
+  const router = useRouter();
+
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
     try {
       const res = await loginUser(data);
+
+      //if logged in...
       if (res?.success) {
         toast.success(res?.message);
+        //get current user...
         const currentUser = await getCurrentUser()
-        
-        if(currentUser.role==='tenant'){
-            setTimeout(()=>{
-              const router = useRouter(); // Initialize the router
-              router.push('tenant/dashboard');
-        }, 2000)} 
-        else {
-          toast.error(res?.message);
-        }
-      } 
-    }catch (err: any) {
+
+      console.log("Current user", currentUser)
+        //create user in redux store...
+        dispatch(setUser(currentUser))
+        //redirect user to home page based on role...
+
+        switch (currentUser.role) {
+          case ('admin'):setTimeout(()=>{
+            router.push('/admin-dashboard');
+          },2000)
+                break;
+          case ('landlord'):setTimeout(()=>{
+            router.push('/landlord-dashboard');
+          },2000)
+                break;
+          case ('tenant'):setTimeout(()=>{
+            router.push('/tenant-dashboard');
+          },2000)
+          break;
+        }//end switch
+      }//end if
+    }//end try
+    catch (err: any) {
+      toast.error(err.message);
       console.error(err);
-    }
-  };
+    }//end catch
+  };//end function
 
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">

@@ -9,26 +9,30 @@ import {
     TextField
 } from "@mui/material"
 import Grid from "@mui/material/Grid2";
-import {Formik, Form, Field, FieldArray} from "formik"
+import {Formik, Form, Field, FieldArray, FormikValues} from "formik"
 import * as Yup from "yup"
 import {DatePicker} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {MinusIcon, Plus} from "lucide-react";
+import {Loader, MinusIcon, Plus} from "lucide-react";
 import {MultipleImageUploadField} from "@/components/shared/Formik/MultipleImageUploadField";
+import {extractUrlArrayFromImages} from "@/lib/utils";
+import {useCreateListingMutation} from "@/app/redux/api/listingApi";
+import {getCurrentUser} from "@/services/AuthService";
 
 //Initial Data
 const initialValues = {
-    title: "",
-    description: "",
-    beds: null,
-    baths: null,
+    title: "test",
+    description: "test",
+    beds: 3,
+    baths: 2,
+    location:'default',
     type: "apartment",
     category: "long-term",
-    rent:null,
-    amenities:[''],
-    availableFrom: null,
-    availableUntil: null,
+    rent:300,
+    amenities:['test'],
+    availableFrom: '2025-01-01',
+    availableUntil: '2025-01-05',
     images:[]
 }
 
@@ -48,22 +52,26 @@ const validationSchema = Yup.object({
     description: Yup.string().required("Required"),
     beds: Yup.number().required("Required").max(10).min(1),
     baths: Yup.number().required("Required").max(10),
+    location:Yup.string().required("Required"),
     type:Yup.string().required("Required"),
     category:Yup.string().required("Required"),
     availableFrom:Yup.date().required("Required"),
     availableUntil:Yup.date().required("Required"),
     rent:Yup.number().required("Required"),
     amenities:Yup.array().required("Required"),
-    images:Yup.object({
+    images:Yup.array(Yup.object({
         file:Yup.string().required("Required"),
-    }).required("At Least One Image is required")
+    }).required("At Least One Image is required"))
 })
 
 const CreateListingForm = () => {
     //const classes = useStyle()
-
-    const onSubmit = (values: any) => {
-        console.log(values)
+    const [createPost ]= useCreateListingMutation()
+    const onSubmit = async(values: FormikValues) => {
+        const imgList = extractUrlArrayFromImages(values.images);
+        const newListing ={...values,images:imgList, availability:'available'};
+        //const result = await createPost(newListing);
+        console.log(await getCurrentUser());
     }
 
     return (
@@ -77,16 +85,10 @@ const CreateListingForm = () => {
                         <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
-                            validateOnBlur={true}
-                            onSubmit={(values,  { setSubmitting  }) => {
-                                console.log('values',values.images, setSubmitting)
-                                setTimeout(() => {
-                                    alert(JSON.stringify(values, null, 2));
-                                    //setSubmitting(false);
-                                }, 400);
-                            }}
+                            //validateOnBlur={true}
+                            onSubmit={onSubmit}
                             >
-                            { ({setFieldValue,touched, handleChange, errors, values })  => (
+                            { ({setFieldValue,touched, handleChange, errors, values, isSubmitting })  => (
                                 <Form >
                                         <Grid container className={'py-5  px-10'} spacing={3}>
                                             {/*Title Field*/}
@@ -166,6 +168,24 @@ const CreateListingForm = () => {
                                                 />
                                             </Grid>
 
+                                            <Grid component={'div'} size={{xs: 12, sm:6, md:6, lg: 6}}>
+                                            <Field
+                                                fullWidth
+                                                component={TextField}
+                                                label="Location"
+                                                variant={'filled'}
+                                                sx={{
+                                                    "& .MuiInputLabel-root": { color: "blue" }, // Default label color
+                                                    "& .MuiInputLabel-root.Mui-focused": { color: "red" }, // Label color when focused
+                                                }}
+                                                name="location"
+                                                id={'location'}
+                                                onChange={handleChange}
+                                                error={ touched.location && Boolean(errors.location)} // ✅ Show error if touched
+                                                helperText={touched.location && errors.location} // ✅ Display error message
+                                            />
+
+                                        </Grid>
                                             {/*Rental Types Select Field*/}
                                             <Grid component={'div'}
                                                   className={'flex flex-col  md:flex-row gap-3 items-center'}
@@ -266,7 +286,9 @@ const CreateListingForm = () => {
                                                     label={'Monthly Rent'}
                                                     type="number"
                                                     name="rent"
+                                                    id={'rent'}
                                                     variant="filled"
+                                                    onChange={handleChange}
                                                     sx={{
                                                         "& .MuiInputLabel-root": { color: "blue" }, // Default label color
                                                         "& .MuiInputLabel-root.Mui-focused": { color: "red" }, // Label color when focused
@@ -278,7 +300,7 @@ const CreateListingForm = () => {
                                             </Grid>
 
                                             {/*Amenities Multi Input Field*/}
-                                            <Grid component={'div'}  size={{xs:12, sm:12, md:12,lg: 12}}
+                                            <Grid component={'div'}  size={{xs:12, sm:12, md:12,lg: 6}}
                                                   spacing={2}>
                                                 <InputLabel>Add Amenities</InputLabel>
                                                 <FieldArray
@@ -336,6 +358,9 @@ const CreateListingForm = () => {
                                             {/*Multiple Image Upload Field with Previews*/}
                                             <Grid component={'div'} size={{sm:12, md:12, lg:12}}>
                                                 <MultipleImageUploadField name='images' />
+                                                {
+                                                    errors.images && <div>{errors.images}</div>
+                                                }
                                             </Grid>
                                             <Grid component={'div'}>
 
@@ -343,8 +368,11 @@ const CreateListingForm = () => {
                                             </Grid>
                                             {JSON.stringify(values)}
                                             <Grid component={'div'} sx={{margin:'auto'}} size={{xs:6,lg:6}}>
-                                                <Button type={'submit'} fullWidth variant={'contained'} color={'success'}>Create
-                                                    Listing</Button>
+                                                <Button type={'submit'}  fullWidth
+                                                        variant={isSubmitting?'outlined':'contained'} color={isSubmitting?'error':'success'} startIcon={<Loader/>}>
+                                                    {
+                                                        isSubmitting ? 'Creating...': 'Create Listing'
+                                                    }</Button>
                                             </Grid>
 
                                         </Grid>
