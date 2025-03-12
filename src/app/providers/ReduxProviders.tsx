@@ -1,7 +1,7 @@
 'use client';
-import { Provider } from 'react-redux';
-import {persistor, store} from "@/app/redux/store";
+import {Provider} from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react";
+import {persistor, store} from "@/lib/store";
 
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
@@ -13,3 +13,5 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
 }
 
 export default ReduxProvider;
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+
