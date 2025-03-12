@@ -5,14 +5,16 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import {IListing} from "@/types/listing";
-import {Button, CardMedia, Divider} from "@mui/material";
-import {Eye, HeartIcon} from "lucide-react";
+import {Button, CardMedia, Divider, Grid2} from "@mui/material";
+import {Calendar, Eye, HeartIcon} from "lucide-react";
 import {RequestPage} from "@mui/icons-material";
+import { Avatar } from '@material-ui/core';
 
 
 const ListingCard = ({listing}:{listing:IListing}) => {
 
     return (
+        <Grid2 size={{lg:4, md:6, sm:12, xs:12}}>
         <Card sx={{ paddingX:3,paddingY:2, boxShadow:4, border:2, borderColor:'#123443' }}>
             <CardMedia
                 component="img"
@@ -21,12 +23,7 @@ const ListingCard = ({listing}:{listing:IListing}) => {
                 alt="Rental Image"
             />
             <CardHeader
-                /*avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="listing">
-                        L
-                    </Avatar>}*/
-                        titleTypographyProps={{
-                            fontSize: 20,
-                        }}
+                sx={{ "& .MuiCardHeader-title": { fontSize: "1rem", fontWeight: "semibold" } }}
                 title={listing.title}
                 subheader={'Posted On: '+ (new Date(listing.createdAt).toLocaleString()) }
             />
@@ -34,7 +31,7 @@ const ListingCard = ({listing}:{listing:IListing}) => {
             <Divider></Divider>
             <CardContent>
                 <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                    {listing?.description}
+                    {listing?.description.slice(0,50)}...<Button variant='outlined'>See More</Button>
                 </Typography>
             </CardContent>
             <CardActions >
@@ -49,6 +46,7 @@ const ListingCard = ({listing}:{listing:IListing}) => {
                 </Button>
             </CardActions>
         </Card>
+        </Grid2>
     )
 };
 

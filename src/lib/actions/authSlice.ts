@@ -17,6 +17,9 @@ const authSlice = createSlice({
             return action.payload;
         },
         removeUser: () => {
+            // Remove the accessToken cookie
+            document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            // set auth state to null
             return null;
         }
     }

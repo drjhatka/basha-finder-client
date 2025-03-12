@@ -20,7 +20,7 @@ const TenantLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
     <>
-      <Navbar />
+
       <main className={`${geistSans.variable} ${geistMono} min-h-screen`}>{children}</main>
       <Footer />
     </>

@@ -18,8 +18,8 @@ import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState} from "react";
 import { useRouter } from "next/navigation";
-import {useAppDispatch} from "@/app/redux/hooks";
-import {setUser} from "@/app/redux/actions/authSlice";
+import {useAppDispatch} from "@/lib/hooks";
+import {setUser} from "@/lib/actions/authSlice";
 
 export default function LoginForm() {
   const form = useForm({
@@ -86,7 +86,7 @@ export default function LoginForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
-        <Logo />
+        {/* <Logo /> */}
         <div>
           <h1 className="text-xl font-semibold">Login</h1>
           <p className="font-extralight text-sm text-gray-600">Welcome back!</p>

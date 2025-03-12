@@ -13,5 +13,4 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
 }
 
 export default ReduxProvider;
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
 

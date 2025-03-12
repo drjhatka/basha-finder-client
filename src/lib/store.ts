@@ -1,10 +1,11 @@
 "use client"
 import {configureStore} from '@reduxjs/toolkit';
-import {listingApi} from "@/app/redux/api/listingApi";
 import {setupListeners} from "@reduxjs/toolkit/query";
 import storage from 'redux-persist/lib/storage';
-import rootReducer from "@/app/redux/rootReducer";
 import { persistStore, persistReducer } from "redux-persist";
+import {listingApi} from "@/lib/api/listingApi";
+import rootReducer from "@/lib/rootReducer";
+
 const authPersistConfig = {
     key: "auth",
     storage: storage,
@@ -30,3 +31,4 @@ setupListeners(store.dispatch)
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+

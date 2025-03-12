@@ -5,11 +5,10 @@ import Link from "next/link";
 const Footer = () => {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/shop", label: "Shop" },
-    { href: "/products", label: "App Products" },
+    { href: "/rentals", label: "Rentals" },
+    { href: "/login", label: "Dashboard" },
     { href: "/about", label: "About Us" },
     { href: "/testimonial", label: "Testimonial" },
-    { href: "/blogs", label: "Blogs" },
     { href: "/contact", label: "Contact Us" },
   ];
 
@@ -19,19 +18,15 @@ const Footer = () => {
     { href: "#", icon: X },
   ];
   return (
-    <footer className="bg-white border-t border-gray-200 py-24">
+    <footer className="bg-slate-200 py-2 border-gray-200">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <div className="flex flex-col items-center mb-6">
+        <div className="flex flex-col items-center">
           <div className="flex items-center space-x-2">
-            <h1 className="text-2xl font-black flex items-center">
-              <Logo />
-              Next Mart
+            <h1 className="text-2xl font-red-500 py-2 flex items-center">
+              <img className=" max-h-36" width={200} src="/logo.webp"/>
+              
             </h1>
           </div>
-          <p className="text-gray-600 mt-3 w-1/2">
-            Save big this Black Friday with unbeatable deals on tech, home
-            essentials, fashion, and more! Limited stock.
-          </p>
         </div>
 
         <hr />
