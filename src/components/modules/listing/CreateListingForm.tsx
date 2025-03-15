@@ -1,5 +1,4 @@
-"use client"
-import React, {SyntheticEvent} from "react"
+import React from "react"
 import {
     Button,
     Card,
@@ -14,11 +13,14 @@ import * as Yup from "yup"
 import {DatePicker} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {Loader, MinusIcon, Plus} from "lucide-react";
+import {MinusIcon, Plus} from "lucide-react";
 import {MultipleImageUploadField} from "@/components/shared/Formik/MultipleImageUploadField";
 import {extractUrlArrayFromImages} from "@/lib/utils";
-import {useCreateListingMutation} from "@/app/redux/api/listingApi";
-import {getCurrentUser} from "@/services/AuthService";
+import { useCreateListingMutation } from "@/lib/api/listingApi";
+import { AutoFixHigh } from "@mui/icons-material";
+import { toast } from "sonner";
+import { IUser } from "@/types";
+import { Typography } from "@material-ui/core";
 
 //Initial Data
 const initialValues = {
@@ -64,24 +66,25 @@ const validationSchema = Yup.object({
     }).required("At Least One Image is required"))
 })
 
-const CreateListingForm = () => {
-    //const classes = useStyle()
+const CreateListingForm = ({user}:{user:IUser|null}) => {
     const [createPost ]= useCreateListingMutation()
     const onSubmit = async(values: FormikValues) => {
         const imgList = extractUrlArrayFromImages(values.images);
-        const newListing ={...values,images:imgList, availability:'available'};
-        //const result = await createPost(newListing);
-        console.log(await getCurrentUser());
+        const newListing ={...values, images:imgList,landlordId:user?.userId, availability:'available'};
+        const result = await createPost(newListing);
+        if(result?.data){
+            toast.success('Listing Created Successfully')
+            return
+        }
+        toast.error('Something Went Wrong, Please Try Again!')
     }
 
     return (
         <Grid component={'div'}  container  spacing={1}>
-            <Grid component={'div'} size={{xs:12, md:12, lg:12}} >
-                <Card className={''}>
-                    <Grid component={'div'} style={{border:'2px solid', marginTop:10}}  >
-                        <CardHeader title="Create A Rental Listing" sx={{boxShadow:'2px 4px 2px 2px #001'}}></CardHeader>
-                        <Divider sx={{boxShadow:'2px 4px 2px #001'}} ></Divider>
-                    </Grid>
+            
+            <Grid component={'div'} boxShadow={5} border={1} size={{xs:12, md:12, lg:12}} >
+                <Card className={'px-4'}>
+                    <Typography style={{paddingTop:2, paddingBottom:2 }} >Create A New Listing</Typography>
                         <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
@@ -300,8 +303,9 @@ const CreateListingForm = () => {
                                             </Grid>
 
                                             {/*Amenities Multi Input Field*/}
-                                            <Grid component={'div'}  size={{xs:12, sm:12, md:12,lg: 6}}
+                                            <Grid component={'div'} container className="w-full border-2"  size={{xs:12, sm:12, md:12,lg: 12}}
                                                   spacing={2}>
+                                                    <Grid  size={{lg:12}} >
                                                 <InputLabel>Add Amenities</InputLabel>
                                                 <FieldArray
                                                     name={'amenities'}
@@ -352,6 +356,7 @@ const CreateListingForm = () => {
                                                     )}
                                                 >
                                                 </FieldArray>
+                                                </Grid>
                                             </Grid>
 
 
@@ -369,7 +374,7 @@ const CreateListingForm = () => {
                                             {JSON.stringify(values)}
                                             <Grid component={'div'} sx={{margin:'auto'}} size={{xs:6,lg:6}}>
                                                 <Button type={'submit'}  fullWidth
-                                                        variant={isSubmitting?'outlined':'contained'} color={isSubmitting?'error':'success'} startIcon={<Loader/>}>
+                                                        variant={isSubmitting?'outlined':'contained'} color={isSubmitting?'error':'success'} startIcon={<AutoFixHigh/>}>
                                                     {
                                                         isSubmitting ? 'Creating...': 'Create Listing'
                                                     }</Button>

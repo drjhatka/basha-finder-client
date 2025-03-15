@@ -21,24 +21,27 @@ const FilterBar = () => {
 
         fetchListings();
     }, []);
-    console.log('l', listings)
+    //console.log('l', listings.data)
 
     return (
-        <Grid2  component={'div'} container className="py-4 grid  mt-4 ">
+        <Grid2 container spacing={2} >
             <Typography  variant="h5" className=" border-b-2 w-full py-5 text-center">
                 Check out our Latest Rental Listings
             </Typography>
-            <Grid2 size={{lg:12}} padding={4} borderBottom={2} marginBottom={3} >
+            <Grid2 size={{lg:12}} borderBottom={2} py={2} mb={2} borderColor={'#AA45AD'} boxShadow={2} px={4}  >
+
                 <FilterAlt color="info" className="w-full"></FilterAlt> Apply Filters
             </Grid2>
-            <Grid2 container spacing={2} >
-                {
-                    listings?.data?.slice(0,6).map(item=><ListingCard key={item._id} listing={item}></ListingCard>)
-                }
+            <Grid2 container >
+                
+                 {
+                     listings?.data?.slice(0,6).map(item=><Grid2 key={item._id}  size={{lg:4, md:6, sm:12, xs:12}}><ListingCard   listing={item}></ListingCard></Grid2>)
+                    }
+                
                 
             </Grid2>
-            <Grid2 container mx={'auto'} marginY={5}>
-                <Button variant="contained" color="secondary">See All Listings</Button>
+            <Grid2 mx={'auto'} marginY={5}>
+                <Button href="/rentals" variant="contained" color="secondary">See All Listings</Button>
             </Grid2>
         </Grid2>
     );

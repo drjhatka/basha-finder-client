@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -20,6 +19,8 @@ import { useState} from "react";
 import { useRouter } from "next/navigation";
 import {useAppDispatch} from "@/lib/hooks";
 import {setUser} from "@/lib/actions/authSlice";
+import { Button } from "@mui/material";
+import { Circle } from "lucide-react";
 
 export default function LoginForm() {
   const form = useForm({
@@ -130,11 +131,13 @@ export default function LoginForm() {
           </div>
 
           <Button
-            // disabled={reCaptchaStatus ? false : true}
+            disabled={isSubmitting}
+            variant="contained"
             type="submit"
             className="mt-5 w-full"
+            //startIcon={<Circle></Circle>}
           >
-            {isSubmitting ? "Logging...." : "Login"}
+            {isSubmitting ? "Logging In...." : "Login"}
           </Button>
         </form>
       </Form>

@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import {Geist, Geist_Mono, Roboto} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import  {ReduxProvider} from "@/app/providers/ReduxProviders";
-import Providers from "@/app/providers/UserProvider";
+import  {ReduxProvider} from "@/providers/ReduxProviders";
+import Providers from "@/providers/UserProvider";
 import NavbarUI from "@/components/shared/NavbarUI";
+import { Grid2 } from "@mui/material";
+import DataProvider from "@/context/DataContext";
+import Footer from "@/components/shared/Footer";
+import UserProvider from "@/context/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,19 +31,29 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
+ 
 }>) {
   return (
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistSans.variable}  antialiased`}
+          className={`${roboto.variable}   antialiased`}
         >
           <Toaster richColors position="top-center" />
+          <DataProvider>
+            <UserProvider>
                 <ReduxProvider>
-                  {children}
-                </ReduxProvider>   
+                  <NavbarUI></NavbarUI>
+                  <Grid2 container marginTop={10} px={5} py={2}>
+                    {children}
+                    
+                  </Grid2>
+                  <Footer></Footer>
+                </ReduxProvider> 
+                </UserProvider>
+                </DataProvider>  
         </body>
       </html>
 

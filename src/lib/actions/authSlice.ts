@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 export interface IAuthState {
+    userId?:string;
     email: string;
     role: string;
     accessToken: string;

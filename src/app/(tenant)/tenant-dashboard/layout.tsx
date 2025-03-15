@@ -1,5 +1,6 @@
 import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
+import NavbarUI from "@/components/shared/NavbarUI";
 import {Geist, Geist_Mono, Roboto} from "next/font/google";
 
 const geistSans = Geist({
@@ -21,8 +22,8 @@ const TenantLayout = ({ children }: { children: React.ReactNode }) => {
     return (
     <>
 
-      <main className={`${geistSans.variable} ${geistMono} min-h-screen`}>{children}</main>
-      <Footer />
+        <main className={`${roboto.variable} ${geistMono} min-h-screen`}>{children}</main>
+      
     </>
   );
 };

@@ -13,15 +13,15 @@ import {removeUser} from "@/lib/actions/authSlice";
 import {Divider, Grid2, Menu} from "@mui/material";
 import {Logout} from "@mui/icons-material";import { Wrench } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { RootState } from '@/lib/store';
 
 export default function NavbarDropDownMenu() {
     const router = useRouter()
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    // @ts-ignore
-    const authUser = useSelector(state => state.rootReducers.auth);
-    console.log('aiuth', authUser)
+    const authUser = useSelector((state:RootState) => state.rootReducers.auth);
+    
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -38,7 +38,8 @@ export default function NavbarDropDownMenu() {
 
     return       <>
         <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+            {
+                authUser ?  <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -53,7 +54,15 @@ export default function NavbarDropDownMenu() {
                     </IconButton>
                 </Tooltip>
 
-            </Box>
+            </Box>: 
+                <Link href={'/login'} className='flex items-center'>
+                    <ListItemIcon>
+                        <Logout style={{color:'white'}} fontSize="large" />
+                    </ListItemIcon>
+                    LogIn
+                </Link>
+            }
+
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -105,7 +114,8 @@ export default function NavbarDropDownMenu() {
                     <Logout /> Logout
                 </MenuItem>
                 
-                </Grid2>:<Grid2>
+                </Grid2>:
+                <Grid2>
             <MenuItem onClick={handleLogOut}>
                     <ListItemIcon>
                         <Logout fontSize="small" />

@@ -1,28 +1,21 @@
 "use client"
+import { IListing } from '@/types/listing';
 import { createSlice } from '@reduxjs/toolkit';
 
-
+const initialState:IListing|null =null
 // Create a slice
 export const listingSlice = createSlice({
     name: 'listing',
-    initialState: {
-        value: 0,
-    },
+    initialState:initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1;
-        },
-        decrement: (state) => {
-            state.value -= 1;
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
-        },
+        getAListing:()=>{
+            
+        }
     },
 });
 
 // Export the actions
-export const { increment, decrement, incrementByAmount } = listingSlice.actions;
+export const { } = listingSlice.actions;
 
 // Export the reducer
 export default listingSlice.reducer;

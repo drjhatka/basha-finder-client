@@ -1,7 +1,5 @@
 'use client'
-
 import React, {useState} from 'react'
-import Link from 'next/link' // Import the Link component from Next.js
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -10,35 +8,43 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
-import { Tabs, Tab, useMediaQuery, useTheme } from '@mui/material'
-import InfoIcon from '@mui/icons-material/Info'
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
-import TimelineIcon from '@mui/icons-material/Timeline'
-import AddReactionIcon from '@mui/icons-material/AddReaction'
-import ContactMailIcon from '@mui/icons-material/ContactMail'
+import { Tabs, useMediaQuery, useTheme } from '@mui/material'
 import {
     List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
     Menu
 } from '@mui/material'
 
-import {ApartmentTwoTone, Dashboard, Home} from '@mui/icons-material'
+import {ApartmentTwoTone, Dashboard, Home, Info, Message} from '@mui/icons-material'
 import CssBaseline from '@mui/material/CssBaseline'
-import logo from '../../../public/logo.svg'
+import logo from '../../../public/logo.webp'
 import Image from 'next/image'
 import HideOnScroll from './HideOnScroll'
 import NavbarDropDownMenu from './NavbarDropDownMenu'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
+import { createNavbarTab, generateListItemButton } from './navbar/navUtils'
+import { usePathname } from 'next/navigation'
 
 const NavbarUI = () => {
+    const pathname = usePathname(); // Get the current route
+
+    const getTabValue = () => {
+        switch (pathname) {
+            case "/": return "1";
+            case "/rentals": return "2";
+            case "/about": return "3";
+            case "/contact": return "4";
+            default: return "1"; // Default to Home
+        }
+    };
 
     // @ts-expect-error event could be of any type
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
     }
     const [anchorElNav, setAnchorElNav] =useState(null)
-
+    const authUser = useSelector((state:RootState) => state.rootReducers.auth);
+    
     const handleCloseNavMenu = () => {
         setAnchorElNav(null)
     }
@@ -49,17 +55,15 @@ const NavbarUI = () => {
     return (
         <>
             <CssBaseline />
+             <HideOnScroll>
                 <AppBar
                     className='navbar1'
                     style={{
-                        width: '93.5%',
-                        right: '3.2%',
                         borderRadius: '2px',
-                        background:
-                            'linear-gradient( 90deg, rgba(110, 55, 228, 0.65) 0%, rgba(80, 108, 177, 0.7) 100% )'
+                        //background:'linear-gradient( 90deg, rgba(110, 55, 228, 0.65) 0%, rgba(80, 108, 177, 0.7) 100% )'
                     }}
                 >
-                    <Container maxWidth='xl' >
+                    <Container >
                         <Toolbar disableGutters>
                             <Typography
                                 variant='h6'
@@ -78,6 +82,7 @@ const NavbarUI = () => {
                                 className='cursorp'
                             >
                                 <Avatar
+                                    
                                     sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                                     className='cursorp Tab8 animate__animated animate__backInLeft'
                                 >
@@ -121,7 +126,6 @@ const NavbarUI = () => {
                                     textDecoration: 'none'
                                 }}
                             >
-                                {' '}
                                 <Avatar
                                     // alt="logo"
                                     // src="https://res.cloudinary.com/dtvtphhsc/image/upload/fl_immutable_cache.preserve_transparency.progressive.sprite/v1693672396/logo_1_lk0neo.webp"
@@ -138,7 +142,8 @@ const NavbarUI = () => {
                                 </Avatar>
                             </Typography>
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                {isMatch ? (
+                                {
+                                isMatch ? (
                                     <IconButton
                                         size='large'
                                         aria-label='account of current user'
@@ -152,108 +157,27 @@ const NavbarUI = () => {
                                 ) : (
                                     <>
                                         {/* LG ICONS */}
-                                        <Tabs value={'1'} centered sx={{ margin: 'auto' }}>
-                                            <Link href={'/'}  >
-                                            <Tab
-                                                value='1'
-                                                label={
-                                                    <p>
-                                                        <Home /> Home
-                                                    </p>
-                                                }
-                                            
-                                                style={{
-                                                    textDecoration: 'none',
-                                                    color: 'white'
-                                                }}
-                                                className='Tab1 animate__animated animate__zoomIn'
-                                            />
-                                        </Link>
-
-
-
-
-                                            <Tab
-                                                value='4'
-                                                label={
-                                                    <p>
-                                                        <Link
-                                                            href='/home/rentals'
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                color: 'white'
-                                                            }}
-                                                        >
-                                                            <ApartmentTwoTone /> Rental Listings
-                                                        </Link>
-                                                    </p>
-                                                }
-                                                className='Tab3 animate__animated animate__zoomIn'
-                                            />
-
-                                            <Tab
-                                                value='5'
-                                                label={
-                                                    <p>
-                                                        <Link
-                                                            href='/blogs'
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                color: 'white'
-                                                            }}
-                                                        >
-                                                            {' '}
-                                                            <Dashboard /> Dashboard
-                                                        </Link>
-                                                    </p>
-                                                }
-                                                className='Tab5 animate__animated animate__zoomIn'
-                                            />
-                                            <Tab
-                                                value='2'
-                                                label={
-                                                    <Link
-                                                        href='/'
-                                                        style={{
-                                                            textDecoration: 'none',
-                                                            color: 'white',
-                                                            opacity: '1'
-                                                        }}
-                                                    >
-                                                        <p>
-                                                            {' '}
-                                                            <InfoIcon  /> About Us
-                                                        </p>
-                                                    </Link>
-                                                }
-                                                className='Tab2 animate__animated animate__zoomIn'
-                                            ></Tab>
-                                            <Tab
-                                                value='6'
-                                                label={
-                                                    <p>
-                                                        <Link
-                                                            href='/contact'
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                color: 'white'
-                                                            }}
-                                                        >
-                                                            <ContactMailIcon /> Contact
-                                                        </Link>
-                                                    </p>
-                                                }
-                                                className='Tab6 animate__animated animate__zoomIn'
-                                            />
+                                        <Tabs value={getTabValue()} centered sx= {{ 
+                                            margin: 'auto', 
+                                            "& .MuiTabs-indicator": {
+                                            backgroundColor: "white", // Change the underline color to white
+                                        } }}>
+                                            { !authUser && createNavbarTab({value:'1',href:'/',title:'Home',icon:<Home/>})}
+                                            { authUser && authUser.role=='tenant' && createNavbarTab({value:'1',href:'/tenant-dashboard',title:'Dashboard',icon:<Home/>})}
+                                            { authUser && authUser.role=='landlord' && createNavbarTab({value:'1',href:'/landlord-dashboard',title:'Dashboard',icon:<Home/>})}
+                                            {createNavbarTab({value:'2',href:'/rentals',title:'Rental Listings',icon:<ApartmentTwoTone/>})}
+                                            {createNavbarTab({value:'3',href:'/about',title:'About Us',icon:<Info/>})}
+                                            {createNavbarTab({value:'4',href:'/contact',title:'Contact Us',icon:<Message/>})}
                                         </Tabs>
                                     </>
                                 )}
                             </Box>
 
                             <Box sx={{ flexGrow: 0 }}>
+                                
                                 <NavbarDropDownMenu />
 
-                                {/* Responsive DropDown Menus */}
+                                {/* Responsive DropDown Left Menus */}
                                 <Menu
                                     id='menu-appbar-avatar'
                                     anchorEl={anchorElNav}
@@ -274,97 +198,18 @@ const NavbarUI = () => {
                                 >
 
                                     {/* Responsive Menus List */}
-                                    <List className='DrawerList w-56 '>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <Home />
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                                primary={'Home'}
-                                                onClick={() => {
-                                                    window.location.href = '/'
-                                                }}
-                                            />
-                                        </ListItemButton>
-
-                                        <ListItemButton className='bg-slate-300 '>
-                                            <ListItemIcon>
-                                                <InfoIcon />
-                                            </ListItemIcon>
-                                            <Link
-                                                href='/'
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                            >
-                                                <ListItemText
-                                                    onClick={handleCloseNavMenu}
-                                                    primary={'About'}
-                                                />{' '}
-                                            </Link>
-                                        </ListItemButton>
-
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <ManageAccountsIcon />
-                                            </ListItemIcon>
-                                            <Link
-                                                href='/skills'
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                            >
-                                                <ListItemText
-                                                    onClick={handleCloseNavMenu}
-                                                    primary={'Skills'}
-                                                />
-                                            </Link>
-                                        </ListItemButton>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <TimelineIcon />
-                                            </ListItemIcon>
-                                            <Link
-                                                href='dashboard/projects/create'
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                            >
-                                                <ListItemText
-                                                    onClick={handleCloseNavMenu}
-                                                    primary={'Projects'}
-                                                />
-                                            </Link>
-                                        </ListItemButton>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <AddReactionIcon />
-                                            </ListItemIcon>
-                                            <Link
-                                                href='/blogs'
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                            >
-                                                <ListItemText
-                                                    onClick={handleCloseNavMenu}
-                                                    primary={'Blogs'}
-                                                />
-                                            </Link>
-                                        </ListItemButton>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <ContactMailIcon />
-                                            </ListItemIcon>
-                                            <Link
-                                                href='/contact'
-                                                style={{ textDecoration: 'none', color: 'red' }}
-                                            >
-                                                <ListItemText
-                                                    onClick={handleCloseNavMenu}
-                                                    primary={'Contact'}
-                                                />
-                                            </Link>
-                                        </ListItemButton>
+                                    <List className='DrawerList w-64 '>
+                                        {generateListItemButton({href:'/',          icon:<Home/>,               text:'Home',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {generateListItemButton({href:'/rentals',   icon:<ApartmentTwoTone/>,   text:'Rental Listings', handleCloseNavMenu:handleCloseNavMenu})}
+                                        {generateListItemButton({href:'/about',     icon:<Info/>,               text:'About Us',        handleCloseNavMenu:handleCloseNavMenu})}
+                                        {generateListItemButton({href:'/contact',   icon:<Message/>,            text:'Contact Us',      handleCloseNavMenu:handleCloseNavMenu})}
                                     </List>
                                 </Menu>
                             </Box>
                         </Toolbar>
                     </Container>
                 </AppBar>
+            </HideOnScroll>
         </>
     )
 }

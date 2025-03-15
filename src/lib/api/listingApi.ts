@@ -10,7 +10,6 @@ export const listingApi = emptySplitApi.injectEndpoints({
                 body
                 //credentials:'same-origin',
             })
-
         })
     }),
     overrideExisting: false,

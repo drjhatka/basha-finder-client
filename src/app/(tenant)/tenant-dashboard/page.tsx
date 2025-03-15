@@ -1,15 +1,19 @@
 
+"use client"
 import {getListings} from "@/app/actions/ListingActions";
 import ListingTabComponent from "@/components/modules/listing/ListingTabComponent";
+import { DataContext } from "@/context/DataContext";
+import { IListing } from "@/types/listing";
+import { useContext } from "react";
 
-const TenantDashboard =  async() => {
-    //const [listings, setListings] = useState<IListing[] | []>([])
-    "use server"
-    const listings = await getListings();
+const TenantDashboard =  () => {
+        const data = useContext(DataContext)
+             //find only with landlord id listings
+            const listings= data?.data
 
     return (
-        <div className={''}>
-            <ListingTabComponent key={'listingTab'} listings={listings.data} />
+        <div className={'mt-10'}>
+            <ListingTabComponent key={'listingTab'} listings={listings as IListing[]} />
         </div>
     );
 };

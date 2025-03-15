@@ -5,13 +5,13 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import {IListing} from "@/types/listing";
-import {Button, CardMedia, Divider, Grid2} from "@mui/material";
+import {Button, CardMedia, Divider, Grid2, Tooltip} from "@mui/material";
 import {Calendar, Eye, HeartIcon} from "lucide-react";
-import {RequestPage} from "@mui/icons-material";
+import {AutoDelete, EditNote, PendingActions, RequestPage} from "@mui/icons-material";
 import { Avatar } from '@material-ui/core';
 
 
-const ListingCard = ({listing}:{listing:IListing}) => {
+const LandlordListingCard = ({listing}:{listing:IListing}) => {
 
     return (
         <Grid2 mx={'auto'} >
@@ -31,16 +31,22 @@ const ListingCard = ({listing}:{listing:IListing}) => {
             <Divider></Divider>
             <CardContent>
                 <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                    {listing?.description.slice(0,50)}...<Button variant='outlined'>See More</Button>
+                    {listing?.description.slice(0,50)}
                 </Typography>
             </CardContent>
             <CardActions >
                 <Button variant={'outlined'} size={'small'} color={'warning'}  >
-                        <HeartIcon ></HeartIcon> Fav
+                        <PendingActions></PendingActions>Update
                 </Button>
-                <Button href={`/tenant-dashboard/createRequest/${listing._id}`} variant={'outlined'} size={'small'} color={'success'}  >
-                    <RequestPage></RequestPage> Book
+                {/* <Button variant={'outlined'} size={'small'} color={'warning'}  >
+                        <EditNote></EditNote>Edit Status
+                </Button> */}
+                <Tooltip disableFocusListener title="Delete">
+            
+                <Button variant={'outlined'} size={'small'} color={'error'}  >
+                    <AutoDelete></AutoDelete> Delete
                 </Button>
+          </Tooltip>
                 <Button href={`/rentals/${listing._id}`} variant={'outlined'} size={'small'} color={'info'}  >
                         <Eye></Eye> view
                 </Button>
@@ -50,4 +56,4 @@ const ListingCard = ({listing}:{listing:IListing}) => {
     )
 };
 
-export default ListingCard;
+export default LandlordListingCard;
