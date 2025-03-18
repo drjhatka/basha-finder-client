@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 export interface IAuthState {
     userId?:string;
     email: string;
+    name?:string;
     role: string;
     accessToken: string;
     iat: string;

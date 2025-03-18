@@ -45,12 +45,9 @@ export default function RootLayout({
           <DataProvider>
             <UserProvider>
                 <ReduxProvider>
-                  <NavbarUI></NavbarUI>
-                  <Grid2 container marginTop={10} px={5} py={2}>
-                    {children}
-                    
-                  </Grid2>
-                  <Footer></Footer>
+                  <NavbarUI/>
+                    {children}     
+                  <Footer/>
                 </ReduxProvider> 
                 </UserProvider>
                 </DataProvider>  

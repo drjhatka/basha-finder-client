@@ -14,7 +14,6 @@ const LoginPage = () => {
     return router.push("/landlord-dashboard")
     
   }
-
   return (
     <div className="h-screen w-screen flex justify-center items-center">
       <LoginForm />

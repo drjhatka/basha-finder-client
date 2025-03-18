@@ -24,6 +24,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store'
 import { createNavbarTab, generateListItemButton } from './navbar/navUtils'
 import { usePathname } from 'next/navigation'
+import { Grid } from '@material-ui/core'
 
 const NavbarUI = () => {
     const pathname = usePathname(); // Get the current route
@@ -53,7 +54,7 @@ const NavbarUI = () => {
     const isMatch = useMediaQuery(theme.breakpoints.down('md'))
  
     return (
-        <>
+        <Grid style={{marginBottom:20}} >
             <CssBaseline />
              <HideOnScroll>
                 <AppBar
@@ -210,7 +211,7 @@ const NavbarUI = () => {
                     </Container>
                 </AppBar>
             </HideOnScroll>
-        </>
+        </Grid>
     )
 }
 

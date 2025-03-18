@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import {
     Button,
     Card,
     CardHeader,
+    Collapse,
     Divider,
+    Fade,
     InputLabel,
     TextField
 } from "@mui/material"
@@ -67,6 +69,7 @@ const validationSchema = Yup.object({
 })
 
 const CreateListingForm = ({user}:{user:IUser|null}) => {
+    const [openForm, setOpenForm] = useState(false)
     const [createPost ]= useCreateListingMutation()
     const onSubmit = async(values: FormikValues) => {
         const imgList = extractUrlArrayFromImages(values.images);
@@ -81,10 +84,11 @@ const CreateListingForm = ({user}:{user:IUser|null}) => {
 
     return (
         <Grid component={'div'}  container  spacing={1}>
-            
-            <Grid component={'div'} boxShadow={5} border={1} size={{xs:12, md:12, lg:12}} >
-                <Card className={'px-4'}>
-                    <Typography style={{paddingTop:2, paddingBottom:2 }} >Create A New Listing</Typography>
+            <Button   onClick={()=>setOpenForm(!openForm)} variant="contained">{openForm?"Close Listing Form":"Open Listing Form"}</Button>
+            <Collapse in={openForm} component={'div'}>
+            <Fade in appear>
+                <Grid  component={'div'} boxShadow={5} border={1} size={{xs:12, md:12, lg:12}} >
+                <Card className={'px-4 bg-slate-100'}>
                         <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
@@ -387,6 +391,8 @@ const CreateListingForm = ({user}:{user:IUser|null}) => {
                         </Formik>
                 </Card>
             </Grid>
+            </Fade>
+            </Collapse>
         </Grid>
     )
 }

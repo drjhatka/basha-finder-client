@@ -1,9 +1,9 @@
 "use client"
 
 import { getListings } from "@/app/actions/ListingActions";
-import { getCurrentUser } from "@/services/AuthService";
-import { IUser } from "@/types";
+import { getRequests } from "@/app/actions/RequestActions";
 import { IListing } from "@/types/listing";
+import { IRequest } from "@/types/request";
 import {
   createContext,
   Dispatch,
@@ -13,56 +13,43 @@ import {
   useState,
 } from "react";
 
-interface IListingProviderValues {
-  data: IListing[] | null;
+interface IProviderValues {
+  listingData: IListing[] | null;
+  requestData: IRequest[] | null;
   isLoading: boolean;
-  fetchListingData: (data: IListing[] | null) => void;
+  fetchData: () => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-export const DataContext = createContext<IListingProviderValues | undefined>(undefined);
+export const DataContext = createContext<IProviderValues|undefined>(undefined);
 
 const DataProvider = ({ children }: { children: React.ReactNode }) => {
-  const [data, setData] = useState<IListing[]|null>(null)
+  const [listingData, setListingData] = useState<IListing[]|null>(null)
+  const [requestData, setRequestData] = useState<IRequest[]|null>(null)
   const [isLoading, setIsLoading] = useState(true);
-
  
-  const fetchListingData =async()=>{
+  //Get All Listings and Reqeust Data
+  const fetchData = async()=>{
     const listings = await getListings();
+    const requests = await  getRequests();
+
     if(listings.success){
-      setData(listings.data)
+      setListingData(listings?.data)
+      setRequestData(requests?.data)
       setIsLoading(false)
     }
     return null
   }
-  // const fetchRequestData =async()=>{
-  //   const requests = await get();
-  //   if(listings.success){
-  //     setData(listings.data)
-  //     setIsLoading(false)
-  //   }
-  //   return null
-  // }
   
   useEffect(() => {
-      fetchListingData()
+      fetchData()
   }, [isLoading]);
 
   return (
-    <DataContext.Provider value={{  data, fetchListingData, isLoading, setIsLoading }}>
+    <DataContext.Provider value={{  listingData, requestData, fetchData, isLoading, setIsLoading }}>
       {children}
     </DataContext.Provider>
   );
-};
-
-export const useUser = () => {
-  const context = useContext(DataContext);
-
-  if (context == undefined) {
-    throw new Error("useUser must be used within the UserProvider context");
-  }
-
-  return context;
 };
 
 export default DataProvider;

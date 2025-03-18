@@ -45,13 +45,14 @@ const ViewRentalPage = () => {
                             {data[0]?.description}
                         </Typography>
                         <Typography variant='body2' style={{color:'red', marginBottom:'20px'}} >
-                            {data[0]?.amenities?.map(item=><Badge>{item}</Badge>)}
+                            Amenites Included: 
+                            {data[0]?.amenities?.map(item=><li><Badge variant='standard' color='info'>{item}</Badge></li>)}
                         </Typography>
 
 
                         <Grid2 size={{xs:12}} sx={{textAlign:'center'}}>
 
-                        <Button href={!user ?'/login':'/tenant-dashboard/createRequest'} disabled={user?.role=="landlord" || user?.role=='admin'} variant='contained' size='large' sx={{gap:2, flexGrow:1}}  ><Mouse></Mouse> Book This Listing</Button>
+                        <Button href={!user ?'/login':'/tenant-dashboard/createRequest/'+data[0]._id} disabled={user?.role=="landlord" || user?.role=='admin'} variant='contained' size='large' sx={{gap:2, flexGrow:1}}  ><Mouse></Mouse> Book This Listing</Button>
                         </Grid2>
                         
                     </Grid2>

@@ -15,3 +15,9 @@ export interface IRequest {
     tenantEmail?: string;
 
 }
+
+export interface TenantRequestCardProps {
+    request: IRequest;
+    handleCancelRequest:(requestId:string)=>void;
+    //listingID?:string;
+}
