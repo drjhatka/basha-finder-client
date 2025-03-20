@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { useRouter } from 'next/router';
 
 const styles = StyleSheet.create({
@@ -38,9 +38,10 @@ const Receipt = ({ paymentIntentId, paymentAmount, customerName, customerEmail, 
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.heading}>Payment Receipt</Text>
+        <Image src={'/logo.webp'}></Image>
+        <Text style={styles.heading}>Rentopia Payment Receipt</Text>
         <Text style={styles.text}>Payment Status: <Text style={styles.value}>{paymentStatus}</Text></Text>
-        <Text style={styles.text}>Payment Intent ID: <Text style={styles.value}>{paymentIntentId}</Text></Text>
+        <Text style={styles.text}>Transaction ID: <Text style={styles.value}>{paymentIntentId}</Text></Text>
       </View>
 
       <View style={styles.section}>

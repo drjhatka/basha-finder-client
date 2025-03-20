@@ -26,6 +26,7 @@ const TenantTabsContainer = () => {
     //getApproved and Pending requests for this tenant...
     const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"pending" })
     const {data:approvedRequests, isLoading:approvedLoading, refetch:approvedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"approved" })
+    const {data:completedRequests, isLoading:completedLoading, refetch:completedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"completed" })
   
     //define handle change event
     const handleChange = (event:SyntheticEvent<Element, Event>, newValue:string) => {
@@ -42,7 +43,6 @@ const TenantTabsContainer = () => {
                         <Tab label="My Payments" value="4" />
                     </TabList>
                 </Box>
-                
                 <TabPanel value="1">
                     <ListingCardContainer listings ={listings} isLoading={isLoading} />
                 </TabPanel>
@@ -56,6 +56,7 @@ const TenantTabsContainer = () => {
                     <TenantRequestCardContainer requests={approvedRequests?.data} isLoading={approvedLoading} refetch={approvedRefetch} />
                 </TabPanel>
                 <TabPanel value="4">
+                    <TenantRequestCardContainer requests={completedRequests?.data} isLoading={completedLoading} refetch={completedRefetch} />
 
                 </TabPanel>
             </TabContext>

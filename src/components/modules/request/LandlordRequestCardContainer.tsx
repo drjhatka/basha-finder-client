@@ -6,13 +6,13 @@ import { Alert, AlertTitle, Button } from "@mui/material";
 import LandlordRequestCard from "./LandlordRequestCard";
 import { approveRequest } from "@/app/actions/RequestActions";
 
-const LandlordRequestCardContainer =({requests,isLoading, pendingRefetch, approvedRefetch}:{requests:IRequest[], isLoading:boolean, pendingRefetch:()=>void, approvedRefetch:()=>void}) => {
+const LandlordRequestCardContainer =({requests,isLoading, refetch}:{requests:IRequest[], isLoading:boolean, refetch:()=>void}) => {
     const [cancelRequest]= useCancelRequestMutation()
     const handleApprove =async(requestId:string)=>{
         const res = await approveRequest(requestId)
         if(res){
-            pendingRefetch()
-            approvedRefetch()
+            refetch()
+            //approvedRefetch()
             toast.error("Request Approved, Wait 24 hours for payment confirmation!")
         }
     }
@@ -28,7 +28,7 @@ const LandlordRequestCardContainer =({requests,isLoading, pendingRefetch, approv
     return ( <div className={'grid md:grid-cols-2 lg:grid-cols-3 md:gap-5'}>
        {!isLoading && !requests?.length && (
                 <Alert sx={{width:'100%'}} severity="info">
-                    <AlertTitle>You have no pending requests!</AlertTitle>
+                    <AlertTitle>You have no requests!</AlertTitle>
                     <Button href="/tenant-dashboard" color="error" variant="contained">
                         Create A New Request
                     </Button>

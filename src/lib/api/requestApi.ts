@@ -13,7 +13,7 @@ export const requestApi = emptySplitApi.injectEndpoints({
         }),
 
         getRequestsByLandlordID:build.query({
-            query:(tenantId)=>'/request/tenant/',    
+            query:(params)=>'/request/landlord/'+params.id +"/"+params.status,   
         }),
         
         createRequest: build.mutation({

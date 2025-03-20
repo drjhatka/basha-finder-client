@@ -15,26 +15,27 @@ import { useSelector } from "react-redux";
 interface PaymentStatus {
   id: string;
   status: string;
+  amount: number;
 }
 
 const PaymentStatusPage = () => {
   const { paymentIntentId, requestId, listingId } = useParams();
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus | null>(null);
-  const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth as IAuthState |null)  ; 
+  const user: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth as IAuthState | null);
 
   useEffect(() => {
     const fetchPaymentStatus = async () => {
       if (paymentIntentId) {
         const response = await fetch(`/api/create-payment-intent?paymentIntentId=${paymentIntentId}`);
         const data = await response.json();
-        
+
         setPaymentStatus(data);
         //change request status
         await completeRequest(requestId as string);
         //change listing to booked
         await updateListingStatus(listingId as string);
         //create payment in db
-        await createPayment({tenantId:user?.userId, listingId:listingId, requestId:requestId, transactionId: data.id, amount: data.amount })
+        await createPayment({ tenantId: user?.userId, listingId: listingId, requestId: requestId, transactionId: data.id, amount: data.amount })
       }
     };
 
@@ -46,9 +47,9 @@ const PaymentStatusPage = () => {
     try {
       const blob = await pdf(
         <Receipt
-          customerEmail="abc.rt@gmail.com"
-          customerName="John"
-          paymentAmount={300}
+          customerEmail={user?.email as string}
+          customerName={user?.name as string}
+          paymentAmount={paymentStatus?.amount as number}
           paymentDate={new Date().toISOString()}
           paymentIntentId={paymentIntentId as string}
           paymentStatus={paymentStatus?.status || "Unknown"}
@@ -73,7 +74,7 @@ const PaymentStatusPage = () => {
         <div>
           <div className="flex flex-col justify-center items-center gap-5">
             <h1>Payment Status: {paymentStatus.status}</h1>
-            <p>Payment Intent ID: {paymentStatus.id}</p>
+            <p>Transaction ID: {paymentStatus.id}</p>
             <p>Status: {paymentStatus.status}</p>
           </div>
 
@@ -81,12 +82,12 @@ const PaymentStatusPage = () => {
             {/* 🔹 PDF Viewer (For Display) */}
             <PDFViewer height={window.innerHeight} width="100%" style={{ transform: "scale(1)", transformOrigin: "top left", border: "none" }}>
               <Receipt
-                customerEmail="abc.rt@gmail.com"
-                customerName="John"
-                paymentAmount={300}
+                customerEmail={user?.email as string}
+                customerName={user?.name as string}
+                paymentAmount={paymentStatus?.amount as number}
                 paymentDate={new Date().toISOString()}
                 paymentIntentId={paymentIntentId as string}
-                paymentStatus={paymentStatus.status}
+                paymentStatus={paymentStatus?.status || "Unknown"}
               />
             </PDFViewer>
 

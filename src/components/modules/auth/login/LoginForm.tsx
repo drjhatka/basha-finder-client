@@ -19,10 +19,15 @@ import { useState} from "react";
 import { useRouter } from "next/navigation";
 import {useAppDispatch} from "@/lib/hooks";
 import {setUser} from "@/lib/actions/authSlice";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Circle } from "lucide-react";
+import BackdropElement from "@/components/ui/backdrop";
 
 export default function LoginForm() {
+   const [open, setOpen] = useState<boolean>(false)
+      const handleClose =()=>{
+          setOpen(!open)
+      }
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -49,11 +54,12 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
     try {
+      setOpen(true)
       const res = await loginUser(data);
 
       //if logged in...
       if (res?.success) {
-        toast.success(res?.message);
+        toast.dismiss(res?.message);
         //get current user...
         const currentUser = await getCurrentUser()
 
@@ -65,17 +71,18 @@ export default function LoginForm() {
         switch (currentUser.role) {
           case ('admin'):setTimeout(()=>{
             router.push('/admin-dashboard');
-          },2000)
+          },1000)
                 break;
           case ('landlord'):setTimeout(()=>{
             router.push('/landlord-dashboard');
-          },2000)
+          },1000)
                 break;
           case ('tenant'):setTimeout(()=>{
             router.push('/tenant-dashboard');
-          },2000)
+          },1000)
           break;
         }//end switch
+        setOpen(false)
       }//end if
     }//end try
     catch (err: any) {
@@ -85,7 +92,12 @@ export default function LoginForm() {
   };//end function
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
+    <>
+    {
+      open ?     <BackdropElement open={open} handleClose={handleClose} >
+        <CircularProgress color="inherit" />
+      </BackdropElement>:
+      <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
         {/* <Logo /> */}
         <div>
@@ -102,7 +114,7 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} value={field.value || ""} />
+                  <Input type="email" {...field}  value={field.value || ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -148,5 +160,7 @@ export default function LoginForm() {
         </Link>
       </p>
     </div>
+    }
+</>
   );
 }

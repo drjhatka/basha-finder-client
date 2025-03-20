@@ -23,6 +23,7 @@ import { AutoFixHigh } from "@mui/icons-material";
 import { toast } from "sonner";
 import { IUser } from "@/types";
 import { Typography } from "@material-ui/core";
+import { IAuthState } from "@/lib/actions/authSlice";
 
 //Initial Data
 const initialValues = {
@@ -68,7 +69,7 @@ const validationSchema = Yup.object({
     }).required("At Least One Image is required"))
 })
 
-const CreateListingForm = ({user}:{user:IUser|null}) => {
+const CreateListingForm = ({user}:{user:IAuthState|null}) => {
     const [openForm, setOpenForm] = useState(false)
     const [createPost ]= useCreateListingMutation()
     const onSubmit = async(values: FormikValues) => {

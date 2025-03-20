@@ -1,10 +1,7 @@
 "use client"
-import { Card, CardContent, Typography, CardActions, Button, Divider, Box, Chip, Stack, Grid2 } from "@mui/material";
-import { RequestModel } from "@/models/RequestModel"; // Adjust import as needed
+import { Card, CardContent, Typography, CardActions, Button, Divider, Chip, Stack, Grid2 } from "@mui/material";
 import { IRequest } from "@/types/request";
 import { ApprovalRounded, CalendarMonth, Message } from "@mui/icons-material";
-import { useCancelRequestMutation } from "@/lib/api/requestApi";
-import { toast } from "sonner";
 import { MinusCircle } from "lucide-react";
 import { useContext } from "react";
 import { DataContext } from "@/context/DataContext";
@@ -17,7 +14,7 @@ interface RequestCardProps {
 
 const LandlordRequestCard: React.FC<RequestCardProps> =({ request, handleApprove, handleReject }) => {
     const data = useContext(DataContext)
-    const listings = data?.data
+    const listings = data?.listingData
     const linkedListing = listings?.find(item=>item._id==request.listingId)
     return (
         <Card sx={{ maxWidth: 400, borderRadius: 1, border:2, boxShadow: 5, p: 2, bgcolor: "whitesmoke" }}>
@@ -37,7 +34,7 @@ const LandlordRequestCard: React.FC<RequestCardProps> =({ request, handleApprove
 
                 <Typography variant="body2" >
                     <CalendarMonth color="secondary"></CalendarMonth>
-                    <strong>Move-in Date:</strong> {new Date(request.moveInDate).toDateString()}
+                    <strong>Move-in Date:</strong> {request?.moveInDate!.toString()}
                 </Typography>
 
                 <Typography className="grid" variant="body2" sx={{ mt: 3, color:'orangered' }}>
@@ -50,18 +47,24 @@ const LandlordRequestCard: React.FC<RequestCardProps> =({ request, handleApprove
             </CardContent>
 
             <CardActions sx={{ justifyContent: "space-between" }}>
-            
-                   
-                <Button disabled={request.status=='approved'} size="small" color="primary" variant="contained" onClick={()=>handleApprove(request._id as string)}>
-                  <ApprovalRounded></ApprovalRounded>  {request.status=='approved'?'Approved':'Approve'}
-                </Button>
+                {
+                     request.status=='pending' && <Button disabled={request.status!=='pending'} size="small" color="primary" variant="contained" onClick={()=>handleApprove(request._id as string)}>
+                     <ApprovalRounded></ApprovalRounded>  {request.status!=='pending'?'Approved':'Approve'}
+                   </Button>
+                }
+
                 
               {
-                request.status!=='approved' && <Button  size="small" onClick={()=>handleReject(request?._id as string)} color="error" variant="outlined">
+                request.status=='pending' &&  <Button  size="small" onClick={()=>handleReject(request?._id as string)} color="error" variant="outlined">
                 <MinusCircle></MinusCircle> Reject
              </Button>
               }  
 
+              {
+                request.status=='completed' &&  <Button  size="small" color="primary" variant="contained" onClick={()=>handleApprove(request._id as string)}>
+                <ApprovalRounded></ApprovalRounded>  Download Receipt
+              </Button>
+              }
             </CardActions>
         </Card>
     );

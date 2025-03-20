@@ -8,10 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Link from 'next/link';
-import {useDispatch, useSelector} from "react-redux";
-import {removeUser} from "@/lib/actions/authSlice";
-import {Divider, Grid2, Menu} from "@mui/material";
-import {Logout} from "@mui/icons-material";import { Wrench } from 'lucide-react';
+import { useDispatch, useSelector } from "react-redux";
+import { IAuthState, removeUser } from "@/lib/actions/authSlice";
+import { Chip, Divider, Grid2, Menu } from "@mui/material";
+import { ArrowDownward, Logout } from "@mui/icons-material"; import { Wrench } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/lib/store';
 
@@ -20,8 +20,8 @@ export default function NavbarDropDownMenu() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const authUser = useSelector((state:RootState) => state.rootReducers.auth);
-    
+    const authUser: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState;
+
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -30,37 +30,45 @@ export default function NavbarDropDownMenu() {
         setAnchorEl(null);
     };
 
-    const handleLogOut =async () => {
+    const handleLogOut = async () => {
         //remove user from redux state and clear cookies...
         dispatch(removeUser())
         router.push('/login')
     }
 
-    return       <>
+    return <>
         <React.Fragment>
             {
-                authUser ?  <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
+                authUser ? <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                    <Tooltip title="Account settings">
+                        <IconButton
+                            onClick={handleClick}
+                            size="small"
+                            sx={{ ml: 2 }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
 
-                        <Avatar sx={{ width: 32, background:'red', height: 32 }}>{ authUser?.email?.slice(0,1).toUpperCase()}</Avatar>
-                    </IconButton>
-                </Tooltip>
+                            <Chip
+                                label={authUser?.name}
+                                className='text-white bg-white'
+                                style={{color:'white', background:'orange'}}
+                                variant="outlined"
+                                icon={<ArrowDownward/>}
+                                
+                            />
+                            {/* <Avatar sx={{ width: 32, background: 'red', height: 32 }}>{authUser?.email?.slice(0, 10).toUpperCase()}</Avatar> */}
+                        </IconButton>
+                    </Tooltip>
 
-            </Box>: 
-                <Link href={'/login'} className='flex items-center'>
-                    <ListItemIcon>
-                        <Logout style={{color:'white'}} fontSize="large" />
-                    </ListItemIcon>
-                    LogIn
-                </Link>
+                </Box> :
+                    <Link href={'/login'} className='flex items-center'>
+                        <ListItemIcon>
+                            <Logout style={{ color: 'white' }} fontSize="large" />
+                        </ListItemIcon>
+                        LogIn
+                    </Link>
             }
 
             <Menu
@@ -100,33 +108,33 @@ export default function NavbarDropDownMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                { authUser ?
+                {authUser ?
                     <Grid2><MenuItem onClick={handleClose}>
-                    <Avatar /> Profile
-                </MenuItem>
-                <Divider />
+                        <Avatar /> Profile
+                    </MenuItem>
+                        <Divider />
 
-                <MenuItem onClick={handleClose}>
-                    <Settings /> Account
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleLogOut}>
-                    <Logout /> Logout
-                </MenuItem>
-                
-                </Grid2>:
-                <Grid2>
-            <MenuItem onClick={handleLogOut}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                    </ListItemIcon>
-                    LogIn
-                </MenuItem>
-                </Grid2>
-            }
+                        <MenuItem onClick={handleClose}>
+                            <Settings /> Account
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={handleLogOut}>
+                            <Logout /> Logout
+                        </MenuItem>
+
+                    </Grid2> :
+                    <Grid2>
+                        <MenuItem onClick={handleLogOut}>
+                            <ListItemIcon>
+                                <Logout fontSize="small" />
+                            </ListItemIcon>
+                            LogIn
+                        </MenuItem>
+                    </Grid2>
+                }
             </Menu>
         </React.Fragment>
-        </>
+    </>
 
 
 }

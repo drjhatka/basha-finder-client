@@ -1,17 +1,15 @@
 "use client"
 import { IListing } from '@/types/listing';
 import React, { useContext } from 'react';
-import ListingCard from './ListingCard';
 import { DataContext } from '@/context/DataContext';
-import { getCurrentUser } from '@/services/AuthService';
-import { IUser } from '@/types';
 import { Alert, AlertTitle, Button, Fade, Grid2 } from '@mui/material';
 import LandlordListingCard from './LandlordListingCard';
+import { IAuthState } from '@/lib/actions/authSlice';
 
-const MyListings = ({ user }: { user: IUser | null }) => {
+const MyListings = ({ user }: { user: IAuthState | null }) => {
     const data = useContext(DataContext)
-    const listings = data?.data
-    const filteredListings = listings?.filter(item => item.landlordId == user?.userId)
+    const listings = data?.listingData
+    const filteredListings = listings?.filter((item:IListing) => item.landlordId == user?.userId)
 
     return (
         <Grid2>
