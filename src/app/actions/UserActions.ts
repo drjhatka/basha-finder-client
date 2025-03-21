@@ -1,5 +1,6 @@
 "use server"
-export const getAllUsers = async(query:any)=>{
+//@ts-expect-error query could be of any type
+export const getAllUsers = async(query)=>{
     const res = await fetch((process.env.NEXT_PUBLIC_BACKEND_URL as string) + '/user/'+query, {
         method: 'GET',
         cache: 'no-store',

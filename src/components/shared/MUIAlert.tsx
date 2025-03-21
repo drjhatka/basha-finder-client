@@ -4,18 +4,17 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import { AlertTitle } from '@mui/material';
 
-interface IAlertProps {
-    message:string;
-    title:string;
-    severity:string;
+// interface IAlertProps {
+//     message:string;
+//     title:string;
+//     severity:string;
   
-}
+// }
 
-export default function TransitionAlerts({message, title, severity}) {
+export default function TransitionAlerts({message, title, severity}:{message:string, title:string, severity:'success'|'error'|'warning'|'info'}) {
   const [open, setOpen] = React.useState(true);
 
   return (

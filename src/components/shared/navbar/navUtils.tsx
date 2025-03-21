@@ -1,5 +1,4 @@
-import { Typography } from "@material-ui/core";
-import { Grid2, ListItemButton, ListItemIcon, ListItemText, Tab } from "@mui/material"
+import { ListItemButton, ListItemIcon, ListItemText, Tab } from "@mui/material"
 import Link from "next/link";
 import { ReactNode } from "react";
 

@@ -1,5 +1,4 @@
 "use client"
-import { approveRequest, rejectRequest } from '@/app/actions/RequestActions';
 import CreateListingForm from '@/components/modules/listing/CreateListingForm';
 import MyListings from '@/components/modules/listing/MyListings';
 import LandlordRequestCardContainer from '@/components/modules/request/LandlordRequestCardContainer';
@@ -8,39 +7,26 @@ import { IAuthState } from '@/lib/actions/authSlice';
 import { useGetRequestsByLandlordIDQuery } from '@/lib/api/requestApi';
 import { RootState } from '@/lib/store';
 import { IListing } from '@/types/listing';
-import { IRequest } from '@/types/request';
 import { AutoStories, CreditScore, DesignServices, PendingActions, PublishedWithChanges } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Alert, AlertTitle, Box, Tab } from '@mui/material';
 import React, { SyntheticEvent, useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { toast } from 'sonner';
 
 const LandlordDashboard = () => {
         const data = useContext(DataContext)
          //find only with landlord id listings
          const listings:IListing[]|null = data?.listingData  as IListing[]
-        const requests:IRequest[]|null = data?.requestData as IRequest[]
+       // const requests:IRequest[]|null = data?.requestData as IRequest[]
         
-        const handleApprove =async(requestId:string)=>{
-            console.log("RR", requestId)
-            const res = await approveRequest(requestId)
-            toast.success("Request has been approved!")
-        }
-        const handleReject = async(requestId:string)=>{
-            console.log("RRR", requestId)
-            const res = await rejectRequest(requestId)
-            toast.error("Request Rejected")
-        }
 
         const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth ) as IAuthState |null ;
         const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} =  useGetRequestsByLandlordIDQuery({id:user?.userId,status:'pending'} )
         const {data:approvedRequests,  isLoading:approvedLoading, refetch:approvedRefetch} = useGetRequestsByLandlordIDQuery({id:user?.userId,status:'approved'} )
         const {data:completedRequests,  isLoading:completedLoading, refetch:completedRefetch} = useGetRequestsByLandlordIDQuery({id:user?.userId,status:'completed'} )
-        console.log('pending', approvedRequests)
+        //console.log('pending', approvedRequests)
          
         const filteredListings = listings?.filter(item=>item.landlordId==user?.userId)
-         const filteredRequests = requests?.filter(item=> item.landlordId== user?.userId)
         const [value, setValue] = useState("1");
         const handleChange = (event:SyntheticEvent<Element, Event>, newValue:string) => {
             setValue(newValue); // Update the active tab

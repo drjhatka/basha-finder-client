@@ -6,9 +6,8 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import {IListing} from "@/types/listing";
 import {Button, CardMedia, Divider, Grid2, Tooltip} from "@mui/material";
-import {Calendar, Eye, HeartIcon} from "lucide-react";
-import {AutoDelete, EditNote, PendingActions, RequestPage} from "@mui/icons-material";
-import { Avatar } from '@material-ui/core';
+import { Eye} from "lucide-react";
+import {AutoDelete, PendingActions} from "@mui/icons-material";
 
 
 const LandlordListingCard = ({listing}:{listing:IListing}) => {

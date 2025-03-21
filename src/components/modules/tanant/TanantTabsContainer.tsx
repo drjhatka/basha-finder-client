@@ -4,7 +4,6 @@ import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {Box} from "@mui/system";
 import {Tab} from "@mui/material";
 import ListingCardContainer from "@/components/modules/listing/ListingCardContainer";
-import {IListing} from "@/types/listing";
 import {useGetRequestsByTenantIDQuery } from '@/lib/api/requestApi';
 import { IAuthState } from '@/lib/actions/authSlice';
 import { useSelector } from 'react-redux';

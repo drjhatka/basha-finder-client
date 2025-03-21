@@ -5,8 +5,8 @@ import { RootState } from '@/lib/store';
 import { createSlideImageFromArray } from '@/lib/utils';
 import { IListing } from '@/types/listing';
 import { Typography } from '@material-ui/core';
-import { ApartmentTwoTone, DiningSharp, Directions, GiteTwoTone, Map, Mouse, RequestQuote } from '@mui/icons-material';
-import { Badge, Box, Button, Chip, Divider, Grid2 } from '@mui/material';
+import { ApartmentTwoTone, DiningSharp, Directions,  Map, Mouse, RequestQuote } from '@mui/icons-material';
+import {  Button, Chip,  Grid2 } from '@mui/material';
 import { useParams } from 'next/navigation';
 import React, { useContext } from 'react';
 import ImageGallery from "react-image-gallery";
@@ -53,7 +53,7 @@ const ViewRentalPage = () => {
                                 <Typography variant='h6' style={{ marginBottom:10}}><DiningSharp/> Amenites Included:</Typography>
                             <Typography key={'amenities'} variant='body2' style={{ color: 'blueviolet', marginBottom: '20px' }} >
                                 
-                                {data[0]?.amenities?.map(item => <Grid2 container spacing={2} sx={{mb:2}}><Directions/><Chip label={item} variant='filled' color='info'></Chip></Grid2>)}
+                                {data[0]?.amenities?.map((item, index) => <Grid2 key={index} container spacing={2} sx={{mb:2}}><Directions/><Chip label={item} variant='filled' color='info'></Chip></Grid2>)}
                             </Typography>
                             </Grid2>
 

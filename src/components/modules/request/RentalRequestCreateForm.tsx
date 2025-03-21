@@ -2,33 +2,29 @@
 
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, Checkbox, FormControlLabel, Grid2, MenuPaper, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, Grid2, TextField, Typography } from "@mui/material";
 import { toast } from "sonner";
 import { DoneOutline, Loop } from "@mui/icons-material";
 import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { IAuthState } from "@/lib/actions/authSlice";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { DataContext } from "@/context/DataContext";
 import { useCreateRequestMutation } from "@/lib/api/requestApi";
 import Image from "next/image";
 
 
-interface RentalRequestFormProps {
-  onSubmit: (values: any) => Promise<void>;
-}
-
 const RentalRequestCreateForm = () => {
   const data = useContext(DataContext)
-  const listings = data.listingData
+  const listings = data?.listingData
   const listingId = useParams().listingId;
 
   const authUser: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState | null;
 
   const filteredListings = listings?.find(item => item._id == listingId)
 
-  const [createRequest, { isLoading, isError, isSuccess }] = useCreateRequestMutation()
+  const [createRequest, { isLoading, isSuccess }] = useCreateRequestMutation()
 
   const onSubmit = async (values: FormikValues, { resetForm }: { resetForm: () => void }) => {
     try {
@@ -42,11 +38,12 @@ const RentalRequestCreateForm = () => {
         tenantPhone: '',
         tenantEmail: authUser?.email
       }
-      const res = await createRequest(newRequest)
+       await createRequest(newRequest)
       toast.success("Rental request submitted successfully!");
       resetForm();
     } catch (error) {
       toast.error("Failed to submit request.");
+      console.log(error)
     }
   }
 

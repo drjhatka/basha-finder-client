@@ -15,7 +15,9 @@ const TenantRequestCard: React.FC<TenantRequestCardProps> = ({ request, handleCa
         <Card sx={{ border: 1, py: 4, px: 4, boxShadow: '1px 4px 3px green' }}>
             <CardContent  >
                 <Typography variant="h6" fontWeight="bold">
-                    Rental Request for {request.listingId.title}
+                    Rental Request for
+                    {/*@ts-ignore */}
+                    {request.listingId.title}
                 </Typography>
                 <Grid2 className="flex gap-5 items-center" color="warning" sx={{ mb: 1 }}>
                     Status:
@@ -47,7 +49,8 @@ const TenantRequestCard: React.FC<TenantRequestCardProps> = ({ request, handleCa
                         <strong className="text-blue-700 border-2 py-4 px-4 shadow-lg">
                             <Paid />
 
-                            {/* @ts-ignore */}{request.listingId.rent}
+                            {/* @ts-expect-error rent is a populated field */}
+                            {request.listingId.rent}
 
                         </strong>
                     </Typography>

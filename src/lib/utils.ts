@@ -11,7 +11,7 @@ export function extractUrlArrayFromImages(images:UploadableFile[]) {
 }
 
 export function createSlideImageFromArray (imageUrls:string[]) {
-  return imageUrls.map((url, index) => ({
+  return imageUrls.map((url) => ({
       original: url,
       thumbnail: url.replace(/(\d+\/\d+\/\d+)$/, "250/150/"), // Adjust the URL to create a thumbnail
   }));

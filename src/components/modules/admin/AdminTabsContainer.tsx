@@ -4,7 +4,6 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box } from "@mui/system";
 import { Tab } from "@mui/material";
 import { DataContext } from '@/context/DataContext';
-import { UserContext } from '@/context/UserContext';
 import { Dashboard } from '@mui/icons-material';
 import AdminListingCardContainer from './AdminListingCardContainer';
 import { getAllUsers } from '@/app/actions/UserActions';
@@ -15,17 +14,10 @@ const AdminTabsContainer = () => {
     const [value, setValue] = useState<string>('1');
     //Load All Listings and Users from data and user context...
     const dataContext = useContext(DataContext);
-    const userContext = useContext(UserContext);
     const [dbUsers, setDBUsers] = useState<TUser[]|undefined>()
 
     const listings = dataContext?.listingData || [];
-    const user = userContext?.user;
-
-    //const  = dataContext?.listingData || [];
-    const isLoading = dataContext?.isLoading ?? true;
-
-    //const users = getAllUsers()
-    //console.log('all user ', users)
+    
     useEffect(()=>{
         async function getUsers (){
             const users = await getAllUsers("")

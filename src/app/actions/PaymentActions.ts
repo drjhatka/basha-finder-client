@@ -1,6 +1,7 @@
 "use server"
 
-export const createPayment = async(body:any)=>{
+//@ts-expect-error body could be of any type
+export const createPayment = async(body)=>{
     const res = await fetch((process.env.NEXT_PUBLIC_BACKEND_URL as string) + '/payment', {
         method: 'POST',
         cache: 'no-store',

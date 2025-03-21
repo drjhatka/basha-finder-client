@@ -5,7 +5,6 @@ import { IListing } from "@/types/listing";
 import { IRequest } from "@/types/request";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Grid } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useContext } from "react";
 
@@ -17,9 +16,8 @@ const CheckOutPageWithParams = () => {
     //extract request 
     const req = contextData?.requestData?.find(item => item._id == requestId)
     //extract listing 
-    //@ts-ignore
+    //@ts-expect-error item is of type any
     const listing = contextData?.listingData?.find(item => item._id == req?.listingId._id)
-    const rent = listing?.rent
     return (
         <div className="">
             <Elements stripe={stripe}> 

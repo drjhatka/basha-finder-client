@@ -5,14 +5,13 @@ import {
   CardActions,
   Typography,
   Button,
-  Stack,
   Box,
   Divider
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import UpdateIcon from "@mui/icons-material/Update";
-import { IUser, TUser } from "@/types";
+import {  TUser } from "@/types";
 
 const UserManagementCard = ({ user }:{user:TUser}) => {
   return (

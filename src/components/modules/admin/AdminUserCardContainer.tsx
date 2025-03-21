@@ -6,7 +6,7 @@ import React from 'react';
 import { toast } from 'sonner';
 
 const AdminUserCardContainer = ({users}:{users:TUser[]|undefined}) => {
-    const [blockUser, {isLoading,}] = useBlockUserMutation()
+    const [blockUser] = useBlockUserMutation()
     const handleUserBlock =async(userId:string)=>{
         await blockUser(userId)
         toast.success('User Blocked!')

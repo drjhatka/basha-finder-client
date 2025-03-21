@@ -2,9 +2,7 @@ import React, { useState } from "react"
 import {
     Button,
     Card,
-    CardHeader,
     Collapse,
-    Divider,
     Fade,
     InputLabel,
     TextField
@@ -21,8 +19,6 @@ import {extractUrlArrayFromImages} from "@/lib/utils";
 import { useCreateListingMutation } from "@/lib/api/listingApi";
 import { AutoFixHigh } from "@mui/icons-material";
 import { toast } from "sonner";
-import { IUser } from "@/types";
-import { Typography } from "@material-ui/core";
 import { IAuthState } from "@/lib/actions/authSlice";
 
 //Initial Data

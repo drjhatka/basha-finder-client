@@ -1,9 +1,5 @@
-import { useUser } from "@/context/UserContext";
-import { IAuthState } from "@/lib/actions/authSlice";
-import { RootState } from "@/lib/store";
 import { getCurrentUser } from "@/services/AuthService";
 import { NextResponse, NextRequest } from "next/server";
-import { useSelector } from "react-redux";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -73,6 +69,7 @@ export async function GET(req: NextRequest) {
     // Return payment intent status
     return new NextResponse(JSON.stringify(paymentIntent), { status: 200 });
   } catch (error) {
+    console.log(error)
     return new NextResponse("Failed to retrieve payment intent", { status: 400 });
   }
 }

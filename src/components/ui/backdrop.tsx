@@ -1,6 +1,6 @@
 "use client"
-import { Backdrop, CircularProgress } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { Backdrop,  } from "@mui/material";
+import { ReactNode } from "react";
 
 const BackdropElement = ({children, open, handleClose}:{children:ReactNode,open:boolean, handleClose:()=>void}) => {
     

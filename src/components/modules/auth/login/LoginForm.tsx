@@ -10,9 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
-import Logo from "@/app/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getCurrentUser, loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
+import { getCurrentUser, loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
 import { useState} from "react";
@@ -20,7 +19,6 @@ import { useRouter } from "next/navigation";
 import {useAppDispatch} from "@/lib/hooks";
 import {setUser} from "@/lib/actions/authSlice";
 import { Button, CircularProgress } from "@mui/material";
-import { Circle } from "lucide-react";
 import BackdropElement from "@/components/ui/backdrop";
 
 export default function LoginForm() {
@@ -32,22 +30,22 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
   const dispatch = useAppDispatch()
-  const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
+ // const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
 
   const {
     formState: { isSubmitting },
   } = form;
 
-  const handleReCaptcha = async (value: string | null) => {
-    try {
-      const res = await reCaptchaTokenVerification(value!);
-      if (res?.success) {
-        setReCaptchaStatus(true);
-      }
-    } catch (err: any) {
-      console.error(err);
-    }
-  };
+  // const handleReCaptcha = async (value: string | null) => {
+  //   try {
+  //     const res = await reCaptchaTokenVerification(value!);
+  //     if (res?.success) {
+  //       setReCaptchaStatus(true);
+  //     }
+  //   } catch (err: any) {
+  //     console.error(err);
+  //   }
+  // };
   const router = useRouter();
 
 
@@ -85,7 +83,8 @@ export default function LoginForm() {
         setOpen(false)
       }//end if
     }//end try
-    catch (err: any) {
+    catch (err) {
+      //@ts-expect-error error could be of any type
       toast.error(err.message);
       console.error(err);
     }//end catch

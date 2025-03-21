@@ -6,9 +6,8 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import {IListing} from "@/types/listing";
 import {Button, CardMedia, Divider, Grid2} from "@mui/material";
-import {Calendar, Eye, HeartIcon} from "lucide-react";
+import { Eye, HeartIcon} from "lucide-react";
 import {RequestPage} from "@mui/icons-material";
-import { Avatar } from '@material-ui/core';
 
 
 const ListingCard = ({listing}:{listing:IListing}) => {

@@ -2,7 +2,6 @@
 import { Grid, LinearProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { FileHeader } from './FileHeader';
-import Image from "next/image";
 
 export interface SingleFileUploadWithProgressProps {
     file: File;
@@ -23,7 +22,8 @@ export function SingleFileUploadWithProgress({
             const url = await uploadFile(file, setProgress);
             onUpload(file, url);
         }
-        upload().then(result=>setUrl(url));
+        
+        upload().then(()=>setUrl(url));
     }, []);
 
     return (

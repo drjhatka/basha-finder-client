@@ -16,7 +16,7 @@ interface ISelectProps {
 
 export default function MUISelect({config}:{config:ISelectProps}) {
     const [value, setValue] = useState('');
-    const {options,label,inputId, selectValue, size} = config;
+    const {options,label,inputId} = config;
 
     const handleChange = (event: SelectChangeEvent) => {
         setValue(event.target.value);

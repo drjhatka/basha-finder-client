@@ -1,13 +1,6 @@
-import Footer from "@/components/shared/Footer";
-import Navbar from "@/components/shared/Navbar";
-import NavbarUI from "@/components/shared/NavbarUI";
 import DataProvider from "@/context/DataContext";
-import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { Geist_Mono, Roboto } from "next/font/google";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
 const roboto = Roboto({
     variable: "--font-roboto",
     weight: '700',

@@ -5,6 +5,7 @@ import { FilterAlt } from "@mui/icons-material";
 import { Button, Grid2 } from "@mui/material";
 import ListingCard from "../modules/listing/ListingCard";
 import { useEffect, useState } from "react";
+import { IListing } from "@/types/listing";
 
 const FilterBar = () => {
     const [listings, setListings] = useState([]);
@@ -13,7 +14,7 @@ const FilterBar = () => {
         const fetchListings = async () => {
             try {
                 const data = await getListings(); // Fetch listings
-                setListings(data); // Update state
+                setListings(data.data); // Update state
                 console.log('vercel ', data)
             } catch (error) {
                 console.error("Error fetching listings:", error);
@@ -36,7 +37,7 @@ const FilterBar = () => {
             <Grid2 container >
                 
                  {
-                     listings?.data?.slice(0,6).map(item=><Grid2 key={item._id}  size={{lg:4, md:6, sm:12, xs:12}}><ListingCard   listing={item}></ListingCard></Grid2>)
+                     listings?.slice(0,6).map((item:IListing)=><Grid2 key={item._id}  size={{lg:4, md:6, sm:12, xs:12}}><ListingCard   listing={item}></ListingCard></Grid2>)
                     }
                 
                 

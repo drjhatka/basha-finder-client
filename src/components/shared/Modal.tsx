@@ -1,7 +1,7 @@
 
 
-const Modal = ({children}) => {
-    return ({});
-};
+// const Modal = ({children}) => {
+//     return ({});
+// };
 
-export default Modal;
+// export default Modal;

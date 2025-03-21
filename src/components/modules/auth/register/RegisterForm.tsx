@@ -12,31 +12,25 @@ import {
 import { Input } from "@/components/ui/input";
 import {  FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
-import Logo from "@/app/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/AuthService";
 import { toast } from "sonner";
-import Select from "react-select/base";
 
 export default function RegisterForm() {
-  const roleOptions = [
-    { value: 'tenant', label: 'Tenant' },
-    { value: 'landlord', label: 'Landlord' },
-  ];
+  
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
-  const {register, control} =form;
+  const {register} =form;
 
   const {
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = form;
 
   const password = form.watch("password");
   const passwordConfirm = form.watch("passwordConfirm");
-  //   console.log(password, passwordConfirm);
-
+ 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const newUser = {name:data.name, email:data.email, password:data.password, role:data.role  }
@@ -47,7 +41,7 @@ export default function RegisterForm() {
       } else {
         toast.error(res?.message);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
     }
   };

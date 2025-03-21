@@ -1,9 +1,6 @@
 "use client"
 import RequestCard from "./RequestCard";
 import { IRequest } from "@/types/request";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-import { Alert, AlertTitle, Button } from "@mui/material";
 import MUIDataAlert from "@/components/shared/DataAlert";
 
 const RequestCardContainer = (
@@ -11,7 +8,7 @@ const RequestCardContainer = (
         { requests: IRequest[], isLoading: boolean, handleCancelRequest: () => void }) => {
 
     //retrieve current user
-    const user = useSelector((state: RootState) => state.rootReducers.auth);
+    //const user = useSelector((state: RootState) => state.rootReducers.auth);
 
     return (
         <div className={'grid md:grid-cols-2 lg:grid-cols-3 md:gap-5'}>

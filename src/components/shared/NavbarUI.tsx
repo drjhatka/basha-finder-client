@@ -14,7 +14,7 @@ import {
     Menu
 } from '@mui/material'
 
-import {ApartmentTwoTone, Dashboard, Home, Info, Message} from '@mui/icons-material'
+import {ApartmentTwoTone, Home, Info, Message} from '@mui/icons-material'
 import CssBaseline from '@mui/material/CssBaseline'
 import logo from '../../../public/logo.webp'
 import Image from 'next/image'
@@ -25,6 +25,7 @@ import { RootState } from '@/lib/store'
 import { createNavbarTab, generateListItemButton } from './navbar/navUtils'
 import { usePathname } from 'next/navigation'
 import { Grid } from '@material-ui/core'
+import { IAuthState } from '@/lib/actions/authSlice'
 
 const NavbarUI = () => {
     const pathname = usePathname(); // Get the current route
@@ -44,7 +45,7 @@ const NavbarUI = () => {
         setAnchorElNav(event.currentTarget)
     }
     const [anchorElNav, setAnchorElNav] =useState(null)
-    const authUser = useSelector((state:RootState) => state.rootReducers.auth);
+    const authUser:IAuthState|null = useSelector((state:RootState) => state.rootReducers.auth) as IAuthState|null;
     
     const handleCloseNavMenu = () => {
         setAnchorElNav(null)

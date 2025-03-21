@@ -1,12 +1,9 @@
 import { Typography } from "@material-ui/core";
 import { Search } from "@mui/icons-material";
 import { Button, Grid2, Input } from "@mui/material";
-import { Form, Formik } from "formik";
-import { Box } from "lucide-react";
-import * as Yup from 'yup';
-export const HeroSection = () => {
-    
-    
+import { Formik } from "formik";
+
+export const HeroSection = () => {    
     return (
       <Grid2 size={{lg:12}}  sx={{background:"#3cb6d3"}}  >
         <Grid2 >

@@ -1,10 +1,7 @@
 
-import { Card, CardContent, Typography, CardActions, Button, Divider, Box, Chip, Stack, Grid2 } from "@mui/material";
-import { RequestModel } from "@/models/RequestModel"; // Adjust import as needed
+import { Card, CardContent, Typography, CardActions, Button, Divider,  Chip, Stack, Grid2 } from "@mui/material";
 import { IRequest } from "@/types/request";
 import { CalendarMonth, Message } from "@mui/icons-material";
-import { useCancelRequestMutation } from "@/lib/api/requestApi";
-import { toast } from "sonner";
 
 interface RequestCardProps {
     request: IRequest;
@@ -30,7 +27,7 @@ const RequestCard: React.FC<RequestCardProps> =({ request, handleCancelRequest }
 
                 <Typography variant="body2" >
                     <CalendarMonth color="secondary"></CalendarMonth>
-                    <strong>Move-in Date:</strong> {new Date(request.moveInDate).toDateString()}
+                    <strong>Move-in Date:</strong> {(request.moveInDate)?.toISOString()}
                 </Typography>
 
                 <Typography className="grid" variant="body2" sx={{ mt: 3, color:'orangered' }}>

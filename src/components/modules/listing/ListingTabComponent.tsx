@@ -6,30 +6,19 @@ import {Tab} from "@mui/material";
 import ListingCardContainer from "@/components/modules/listing/ListingCardContainer";
 import {IListing} from "@/types/listing";
 import RequestCardContainer from '../request/ReqestCardContainer';
-import LandlordApprovedRequestCardContainer from '../request/LandlordApprovedRequestContainer';
-import { useCancelRequestMutation, useGetRequestsByTenantIdQuery } from '@/lib/api/requestApi';
 import { IAuthState } from '@/lib/actions/authSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { IRequest } from '@/types/request';
-import { toast } from 'sonner';
 
 const ListingTabComponent = ({listings}:{listings:IListing[]|[]}) => {
     //retrieve user..
-    const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth ) ; 
+    //const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth ) as IAuthState|null ; 
     
-    const handleCancelRequest =async(requestId:string)=>{
-        const [cancelRequest,{}] = await useCancelRequestMutation()
-        const response = await cancelRequest(requestId)
-        if(response.data){
-            //refetch()
-            toast.error("Request Cancelled")
-        }
-    }
     
     // retrieve approved and pending requests based on tenant ID
-    const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} = useGetRequestsByTenantIdQuery({tenantId:user?._id, status:'pending'})
-    const {data:approvedRequests, isLoading:pendinLoading, refetch:approvedRefetch} = useGetRequestsByTenantIdQuery({tenantId:user?._id, status:'approved'})
+   // const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} = useGetRequestsByTenantIDQuery({tenantId:user?.userId, status:'pending'})
+    //const {data:approvedRequests, isLoading:pendinLoading, refetch:approvedRefetch} = useGetRequestsByTenantIDQuery({tenantId:user?.userId, status:'approved'})
     
     //set default value for tab panel
     const [value, setValue] = useState<string>('1');
@@ -48,13 +37,13 @@ const ListingTabComponent = ({listings}:{listings:IListing[]|[]}) => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <ListingCardContainer listings ={listings} />
+                    {/* <ListingCardContainer listings ={listings} isLoading={false}  /> */}
                 </TabPanel>
                 <TabPanel value="2">
-                    <RequestCardContainer></RequestCardContainer>
+                    {/* <RequestCardContainer></RequestCardContainer> */}
                 </TabPanel>
                 <TabPanel value="3">
-                    <LandlordApprovedRequestCardContainer requests={data?.data?.filter((item:IRequest)=>item.status=='approved')} isLoading={isLoading} refetch={refetch}  ></LandlordApprovedRequestCardContainer>
+                    {/* <LandlordApprovedRequestCardContainer requests={data?.data?.filter((item:IRequest)=>item.status=='approved')} isLoading={isLoading} refetch={refetch}  ></LandlordApprovedRequestCardContainer> */}
 
                 </TabPanel>
                 <TabPanel value="4">

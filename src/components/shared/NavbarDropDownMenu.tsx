@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from "react-redux";
 import { IAuthState, removeUser } from "@/lib/actions/authSlice";
 import { Chip, Divider, Grid2, Menu } from "@mui/material";
-import { ArrowDownward, Logout } from "@mui/icons-material"; import { Wrench } from 'lucide-react';
+import { ArrowDownward, Logout } from "@mui/icons-material";
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/lib/store';
 
@@ -20,7 +20,7 @@ export default function NavbarDropDownMenu() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const authUser: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState;
+    const authUser: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState|null;
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
