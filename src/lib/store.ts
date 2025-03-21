@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from "redux-persist";
 import {listingApi} from "@/lib/api/listingApi";
 import rootReducer from "@/lib/rootReducer";
+import { userApi } from './api/userApi';
 
 const authPersistConfig = {
     key: "auth",
@@ -15,6 +16,7 @@ const persistedReducer = persistReducer(authPersistConfig, rootReducer);
 export const store = configureStore({
     reducer: {
                 [listingApi.reducerPath]: listingApi.reducer,
+                
                 rootReducers:persistedReducer,
             },
     middleware:(getDefaultMiddleware:any)=>getDefaultMiddleware(

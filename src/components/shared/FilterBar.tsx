@@ -14,6 +14,7 @@ const FilterBar = () => {
             try {
                 const data = await getListings(); // Fetch listings
                 setListings(data); // Update state
+                console.log('vercel ', data)
             } catch (error) {
                 console.error("Error fetching listings:", error);
             }
