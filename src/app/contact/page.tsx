@@ -6,7 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const ContactUsPage = () => {
   return (
-    <>
+    <div className="bg-white">
       {/* Hero Section */}
       <Box
         sx={{
@@ -67,7 +67,7 @@ const ContactUsPage = () => {
           </Box>
         </Box>
       </Container>
-    </>
+    </div>
   );
 };
 

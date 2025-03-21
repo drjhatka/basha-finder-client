@@ -8,7 +8,7 @@ const AllRentalsPage = () => {
     const data = useContext(DataContext)
     const listings = data?.listingData
     return (
-        <Grid2   pt={2} px={2}  gap={2} >
+        <Grid2 container   pt={2} px={2}  gap={2} >
             <ListingCardContainer listings={listings!} isLoading={data?.isLoading as boolean} ></ListingCardContainer>
         </Grid2>
     );

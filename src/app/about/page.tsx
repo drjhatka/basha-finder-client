@@ -4,7 +4,7 @@ import { Microscope } from "lucide-react";
 
 const AboutUsPage = () => {
   return (
-    <>
+    <div className="bg-white">
       {/* Hero Section */}
       <Box
         sx={{
@@ -52,7 +52,7 @@ const AboutUsPage = () => {
           Our Core Values
         </Typography>
         <Grid container  spacing={4} justifyContent="center">
-          {["Transparency", "Convenience", "Trust", "Innovation"].map((value) => (
+          {["Transparency", "Convenience", "Trustworthy", "Innovation"].map((value) => (
             <Grid item  key={value} xs={12} sm={6} md={3}>
               <Box
                 sx={{ p: 3, borderRadius: 2, boxShadow: 2, bgcolor: "background.paper" }}
@@ -82,7 +82,7 @@ const AboutUsPage = () => {
           Get Started
         </Button>
       </Box>
-    </>
+    </div>
   );
 };
 

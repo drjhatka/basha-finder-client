@@ -26,12 +26,12 @@ const FilterBar = () => {
     //console.log('l', listings.data)
 
     return (
-        <Grid2 container spacing={2} >
-            <Typography  variant="h5" className=" border-b-2 w-full py-5 text-center">
+        <Grid2 container spacing={2}  >
+            
+            <Grid2 size={{lg:12}} borderBottom={2} py={2} mb={2} bgcolor={'white'} boxShadow={2} px={4}  >
+            <Typography  variant="h5"  className=" border-b-2 w-full py-5 text-center">
                 Check out our Latest Rental Listings
             </Typography>
-            <Grid2 size={{lg:12}} borderBottom={2} py={2} mb={2} borderColor={'#AA45AD'} boxShadow={2} px={4}  >
-
                 <FilterAlt color="info" className="w-full"></FilterAlt> Apply Filters
             </Grid2>
             <Grid2 container >

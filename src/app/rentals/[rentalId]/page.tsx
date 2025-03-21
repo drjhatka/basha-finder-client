@@ -21,14 +21,14 @@ const ViewRentalPage = () => {
     const data: IListing[] | undefined = contextData?.listingData?.filter((item: IListing) => item._id == rentalId)
 
     return (
-        <>
-            {data && contextData?.listingData && <Grid2 container key={'view-listing'}>  <Grid2 size={{ md: 12, lg: 6 }} >
+        <div className="bg-white ">
+            {data && contextData?.listingData && <Grid2 container key={'view-listing'}>  <Grid2 size={{ md: 12, lg: 6 }} mt={5} >
                 <ImageGallery showBullets additionalClass='w-full' items={data[0]?.images && createSlideImageFromArray(data[0]?.images)}></ImageGallery>
 
             </Grid2>
-                <Grid2 size={{ lg: 6, md: 12, sm: 12, xs: 12 }} marginTop={{ sm: 2, md: 2, lg: 0 }} px={4} py={4}>
-                    <Grid2>
-                        <Typography className='border-b-2 shadow-2xl py-2 text-center' variant='h5' >{data[0]?.title}</Typography>
+                <Grid2 size={{ lg: 6, md: 12, sm: 12, xs: 12 }} marginTop={{ sm: 2, md: 2, lg: 0 }} px={4} py={4} >
+                    <Grid2 >
+                        <Typography className='border-b-2 bg-red-50 shadow-2xl py-2 text-center text-orange-800' variant='h5' >{data[0]?.title}</Typography>
 
                     </Grid2>
                     <Grid2 container>
@@ -53,7 +53,7 @@ const ViewRentalPage = () => {
                                 <Typography variant='h6' style={{ marginBottom:10}}><DiningSharp/> Amenites Included:</Typography>
                             <Typography key={'amenities'} variant='body2' style={{ color: 'blueviolet', marginBottom: '20px' }} >
                                 
-                                {data[0]?.amenities?.map((item, index) => <Grid2 key={index} container spacing={2} sx={{mb:2}}><Directions/><Chip label={item} variant='filled' color='info'></Chip></Grid2>)}
+                                {data[0]?.amenities?.map((item, index) => <Grid2 direction={'row'} key={index} container spacing={2} sx={{mb:2}}><Directions/><Chip label={item} variant='filled' color='info'></Chip></Grid2>)}
                             </Typography>
                             </Grid2>
 
@@ -69,7 +69,7 @@ const ViewRentalPage = () => {
                 </Grid2>
             </Grid2>
             }
-        </>
+        </div>
     );
 };
 

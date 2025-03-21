@@ -36,7 +36,7 @@ export default function RootLayout({
             <UserProvider>
                 <ReduxProvider>
                   <NavbarUI/>
-                  <div className="mt-20">
+                  <div className="mt-16 bg-slate-200">
 
                     {children}     
 
