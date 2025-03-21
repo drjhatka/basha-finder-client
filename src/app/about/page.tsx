@@ -8,7 +8,8 @@ const AboutUsPage = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          backgroundImage: "url('/hero-bg.svg')",
+          backgroundImage: "url('/about.webp')",
+          
           backgroundBlendMode:'darken',
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -23,10 +24,10 @@ const AboutUsPage = () => {
       >
         <Box>
 
-          <Typography  variant="h2" color="primary" fontWeight="bold">
+          <Typography  variant="h2" fontWeight="bold">
             Welcome to Rentopia
           </Typography>
-          <Typography variant="h5" color="error" sx={{ mt: 2 }}>
+          <Typography variant="h5"  sx={{ mt: 2 }}>
             Your dream rental, just a click away.
           </Typography>
         </Box>
