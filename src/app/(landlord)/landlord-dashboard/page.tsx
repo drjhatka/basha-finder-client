@@ -28,7 +28,7 @@ const LandlordDashboard = () => {
             toast.success("Request has been approved!")
         }
         const handleReject = async(requestId:string)=>{
-            console.log("RR", requestId)
+            console.log("R", requestId)
             const res = await rejectRequest(requestId)
             toast.error("Request Rejected")
         }
