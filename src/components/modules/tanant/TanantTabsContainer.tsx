@@ -10,6 +10,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import TenantRequestCardContainer from './TenantRequestCardContainer';
 import { DataContext } from '@/context/DataContext';
+import { useGetPaymentsByTenantIDQuery } from '@/lib/api/paymentApi';
+import PaymentHistoryContainer from './PaymentHistoryContainer';
+import { getAllPaymentsByTenantID } from '@/app/actions/PaymentActions';
 
 const TenantTabsContainer = () => {
     const [value, setValue] = useState<string>('1');
@@ -19,14 +22,13 @@ const TenantTabsContainer = () => {
     const listings = dataContext?.listingData || [];
     const isLoading = dataContext?.isLoading ?? true;
     //retrieve user..
-    const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth as IAuthState |null)  ; 
+    const user:IAuthState|null =  useSelector((state:RootState) => state.rootReducers.auth )as IAuthState |null  ; 
     
     
     //getApproved and Pending requests for this tenant...
     const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"pending" })
     const {data:approvedRequests, isLoading:approvedLoading, refetch:approvedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"approved" })
-    const {data:completedRequests, isLoading:completedLoading, refetch:completedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"completed" })
-  
+    //const {data:completedRequests, isLoading:completedLoading, refetch:completedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"completed" })
     //define handle change event
     const handleChange = (event:SyntheticEvent<Element, Event>, newValue:string) => {
         setValue(newValue); // Update the active tab
@@ -34,9 +36,9 @@ const TenantTabsContainer = () => {
 
     return (
             <TabContext  value={value} >
-                <Box width={'100%'} display={'flex'} marginTop={4} justifyContent={'center'} >
+                <Box width={'100%'} display={'flex'} bgcolor={'white'} marginTop={4} justifyContent={'center'} >
                     <TabList onChange={handleChange} aria-label="Rentopia Tenant Tabs">
-                        <Tab label="Book Listings" value="1" />
+                        <Tab  label="Book Listings" value="1" />
                         <Tab label="Pending Requests" value="2" />
                         <Tab label="Approved Requests" value="3" />
                         <Tab label="My Payments" value="4" />
@@ -55,8 +57,8 @@ const TenantTabsContainer = () => {
                     <TenantRequestCardContainer requests={approvedRequests?.data} isLoading={approvedLoading} refetch={approvedRefetch} />
                 </TabPanel>
                 <TabPanel value="4">
-                    <TenantRequestCardContainer requests={completedRequests?.data} isLoading={completedLoading} refetch={completedRefetch} />
-
+                    <PaymentHistoryContainer userId={user?.userId as string}></PaymentHistoryContainer>
+                    {/* <TenantRequestCardContainer requests={completedRequests?.data} isLoading={completedLoading} refetch={completedRefetch} /> */}
                 </TabPanel>
             </TabContext>
     );

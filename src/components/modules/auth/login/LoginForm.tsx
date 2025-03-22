@@ -36,16 +36,6 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = form;
 
-  // const handleReCaptcha = async (value: string | null) => {
-  //   try {
-  //     const res = await reCaptchaTokenVerification(value!);
-  //     if (res?.success) {
-  //       setReCaptchaStatus(true);
-  //     }
-  //   } catch (err: any) {
-  //     console.error(err);
-  //   }
-  // };
   const router = useRouter();
 
 
@@ -54,6 +44,7 @@ export default function LoginForm() {
     try {
       setOpen(true)
       const res = await loginUser(data);
+      console.log('res', res)
 
       //if logged in...
       if (res?.success) {
@@ -82,6 +73,10 @@ export default function LoginForm() {
         }//end switch
         setOpen(false)
       }//end if
+      if(res.success.err){
+        toast.error(res.errorSources[0].message);
+
+      }
     }//end try
     catch (err) {
       //@ts-expect-error error could be of any type

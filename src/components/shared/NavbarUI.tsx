@@ -165,11 +165,11 @@ const NavbarUI = () => {
                                             backgroundColor: "white", // Change the underline color to white
                                         } }}>
                                             { !authUser && createNavbarTab({value:'1',href:'/',title:'Home',icon:<Home/>})}
-                                            { authUser && authUser.role=='tenant' && createNavbarTab({value:'1',href:'/tenant-dashboard',title:'Dashboard',icon:<Home/>})}
-                                            { authUser && authUser.role=='landlord' && createNavbarTab({value:'1',href:'/landlord-dashboard',title:'Dashboard',icon:<Home/>})}
-                                            {createNavbarTab({value:'2',href:'/rentals',title:'Rental Listings',icon:<ApartmentTwoTone/>})}
-                                            {createNavbarTab({value:'3',href:'/about',title:'About Us',icon:<Info/>})}
-                                            {createNavbarTab({value:'4',href:'/contact',title:'Contact Us',icon:<Message/>})}
+                                            { authUser && authUser.role=='tenant' && createNavbarTab({value:'1',href:'/tenant-dashboard',title:'Tenant Dashboard',icon:<Home/>})}
+                                            { authUser && authUser.role=='landlord' && createNavbarTab({value:'1',href:'/landlord-dashboard',title:'Landlord Dashboard',icon:<Home/>})}
+                                            {!authUser && createNavbarTab({value:'2',href:'/rentals',title:'Rental Listings',icon:<ApartmentTwoTone/>})}
+                                            {!authUser && createNavbarTab({value:'3',href:'/about',title:'About Us',icon:<Info/>})}
+                                            {!authUser && createNavbarTab({value:'4',href:'/contact',title:'Contact Us',icon:<Message/>})}
                                         </Tabs>
                                     </>
                                 )}
@@ -201,10 +201,10 @@ const NavbarUI = () => {
 
                                     {/* Responsive Menus List */}
                                     <List className='DrawerList w-64 '>
-                                        {generateListItemButton({href:'/',          icon:<Home/>,               text:'Home',            handleCloseNavMenu:handleCloseNavMenu})}
-                                        {generateListItemButton({href:'/rentals',   icon:<ApartmentTwoTone/>,   text:'Rental Listings', handleCloseNavMenu:handleCloseNavMenu})}
-                                        {generateListItemButton({href:'/about',     icon:<Info/>,               text:'About Us',        handleCloseNavMenu:handleCloseNavMenu})}
-                                        {generateListItemButton({href:'/contact',   icon:<Message/>,            text:'Contact Us',      handleCloseNavMenu:handleCloseNavMenu})}
+                                        {generateListItemButton({href:'/',          icon:<Home/>,               text:'Dashboard',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {!authUser && generateListItemButton({href:'/rentals',   icon:<ApartmentTwoTone/>,   text:'Rental Listings', handleCloseNavMenu:handleCloseNavMenu})}
+                                        {!authUser && generateListItemButton({href:'/about',     icon:<Info/>,               text:'About Us',        handleCloseNavMenu:handleCloseNavMenu})}
+                                        {!authUser && generateListItemButton({href:'/contact',   icon:<Message/>,            text:'Contact Us',      handleCloseNavMenu:handleCloseNavMenu})}
                                     </List>
                                 </Menu>
                             </Box>

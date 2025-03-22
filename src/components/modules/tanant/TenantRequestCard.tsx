@@ -12,6 +12,7 @@ const TenantRequestCard: React.FC<TenantRequestCardProps> = ({ request, handleCa
     //console.log('l', listingID)
     console.log('listing id', request.listingId)
     return (
+        <>
         <Card sx={{ border: 1, py: 4, px: 4, boxShadow: '1px 4px 3px green' }}>
             <CardContent  >
                 <Typography variant="h6" fontWeight="bold">
@@ -86,6 +87,7 @@ const TenantRequestCard: React.FC<TenantRequestCardProps> = ({ request, handleCa
 
             </CardActions>
         </Card>
+        </>
     );
 };
 

@@ -13,6 +13,7 @@ import { useContext} from "react";
 import { DataContext } from "@/context/DataContext";
 import { useCreateRequestMutation } from "@/lib/api/requestApi";
 import Image from "next/image";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 
 
 const RentalRequestCreateForm = () => {
@@ -62,9 +63,10 @@ const RentalRequestCreateForm = () => {
 
   return (
 
-    <Box component="form" onSubmit={formik.handleSubmit} >
+    <Box   className="bg-white lg:w-[50%] mx-auto px-10 py-10 mt-5" component="form" onSubmit={formik.handleSubmit} >
+            <Breadcrumb links={['home', 'Create listing Request']}></Breadcrumb>
 
-      <Image width={250} height={150} objectFit="cover" alt={'image'} src={filteredListings?.images[0]?? "/default-listing.jpg"} ></Image>
+      <Image width={250} height={150} objectFit="cover" alt={'image'} src={filteredListings?.images[0]?? "/house1.jpeg"} ></Image>
       <Typography variant="h5" gutterBottom>
         Create Rental Request for {filteredListings && filteredListings?.title}
       </Typography>

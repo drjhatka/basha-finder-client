@@ -53,7 +53,7 @@ export default function NavbarDropDownMenu() {
                             <Chip
                                 label={authUser?.name}
                                 className='text-white bg-white'
-                                style={{color:'white', background:'orange'}}
+                                style={{color:'red', background:'whitesmoke'}}
                                 variant="outlined"
                                 icon={<ArrowDownward/>}
                                 

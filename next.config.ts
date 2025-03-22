@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
                 hostname: 'res.cloudinary.com',
                 pathname: '/**', // This allows any image path under the domain
             },
+            {
+              protocol: 'https',
+              hostname: 'i.ibb.co',
+              pathname: '/**', // This allows any image path under the domain
+          },
         ],
     },
     
