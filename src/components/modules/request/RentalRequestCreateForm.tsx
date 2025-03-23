@@ -39,7 +39,8 @@ const RentalRequestCreateForm = () => {
         tenantPhone: '',
         tenantEmail: authUser?.email
       }
-       await createRequest(newRequest)
+       const res =await createRequest(newRequest)
+        console.log(res)
       toast.success("Rental request submitted successfully!");
       resetForm();
     } catch (error) {

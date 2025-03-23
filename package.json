@@ -54,6 +54,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-pdf": "^9.2.1",
     "react-redux": "^9.2.0",
+    "react-search-autocomplete": "^8.5.2",
     "react-select": "^5.10.1",
     "redux-persist": "^6.0.0",
     "sonner": "^1.7.2",

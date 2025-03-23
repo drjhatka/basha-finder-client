@@ -2,13 +2,19 @@
 
 import FilterBar from "@/components/shared/FilterBar";
 import HeroSection from "@/components/shared/HeroSection";
+import {useContext} from "react";
+import {DataContext} from "@/context/DataContext";
 
 const HomePage = () => {
+    const contextData = useContext(DataContext)
   return (
     <>
-      <HeroSection ></HeroSection>
+        {
+            !contextData?.isLoading &&<HeroSection listings={contextData?.listingData} />
+        }
+
       
-       <FilterBar></FilterBar>
+       <FilterBar/>
 
       
         
