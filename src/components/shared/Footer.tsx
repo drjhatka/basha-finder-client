@@ -17,11 +17,11 @@ const Footer = () => {
     { href: "#", icon: X },
   ];
   return (
-    <footer className="bg-slate-200 py-2 border-gray-200">
+    <footer className="bg-black text-white py-2 border-gray-200">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center">
           <div className="flex items-center space-x-2">
-            <h1 className="text-2xl font-red-500 py-2 flex items-center">
+            <h1 className="text-2xl text-white py-2 flex items-center">
               <img className=" max-h-36" width={200} src="/logo.webp"/>
               
             </h1>
@@ -29,7 +29,7 @@ const Footer = () => {
         </div>
 
         <hr />
-        <ul className="flex justify-center space-x-6 text-sm text-gray-800 font-medium my-4">
+        <ul className="flex justify-center space-x-6 text-sm text-white font-medium my-4">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link href={link.href} className="hover:text-purple-600">
@@ -39,12 +39,12 @@ const Footer = () => {
           ))}
         </ul>
 
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center text-white space-x-4">
           {socialLinks.map(({ href, icon: Icon }, index) => (
             <Link
               href={href}
               key={index}
-              className="text-gray-600 hover:text-purple-600"
+              className="text-white hover:text-purple-600"
             >
               <Icon className="w-5 h-5" />
             </Link>

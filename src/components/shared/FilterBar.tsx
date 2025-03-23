@@ -10,10 +10,10 @@ import { Formik } from "formik";
 
 const FilterBar = () => {
     const priceRange = [
-        { value: 100, label: "$100" },
-        { value: 200, label: "$200" },
-        { value: 300, label: "$300" },
-        { value: 400, label: "$400" },
+        { value: 1000, label: "$1000" },
+        { value: 2000, label: "$2000" },
+        { value: 3000, label: "$3000" },
+        { value: 4000, label: "$4000" },
     ];
     
     const apartmentTypes = ["Apartment", "Condo", "House"];
@@ -38,11 +38,9 @@ const FilterBar = () => {
     // 🔥 Function to apply filters
     const handleFilterSubmit = (values: { location: string; price: number; type: string }) => {
         let filtered = listings;
-        console.log("Data", listings);
-
 
         if (values.price) {
-            filtered = filtered.filter((listing) => listing.rent >= values.price);
+            filtered = filtered.filter((listing) => listing.rent <= values.price);
         }
 
         if (values.type) {
@@ -66,17 +64,17 @@ const FilterBar = () => {
                 >
                     {({ values, setFieldValue, handleSubmit }) => (
                         <form className="w-full flex flex-col items-center gap-4" onSubmit={handleSubmit}>
-                            <Grid container spacing={2} alignItems="center">
+                            <Grid container spacing={4} alignItems="center">
                                 {/* Price Range */}
-                                <Grid item xs={12} sm={4}>
-                                    <InputLabel sx={{ mb: 2 }}>Price Range</InputLabel>
+                                <Grid item xs={12} sm={12} lg={3} mx={'auto'} >
+                                    <InputLabel>Price Range</InputLabel>
                                     <Slider
                                         value={values.price}
-                                        step={100}
+                                        step={1000}
                                         marks={priceRange}
-                                        min={100}
-                                        max={400}
-                                        valueLabelDisplay="on"
+                                        min={1000}
+                                        max={4000}
+                                        valueLabelDisplay="off"
                                         onChange={(_, value) => setFieldValue("price", value)}
                                     />
                                 </Grid>

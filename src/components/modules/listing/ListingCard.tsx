@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { IListing } from "@/types/listing";
-import { Button, CardMedia, Divider, Grid } from "@mui/material";
+import { Button, CardMedia, Chip, Divider, Grid } from "@mui/material";
 import { Eye, HeartIcon } from "lucide-react";
 import { RequestPage } from "@mui/icons-material";
 
@@ -14,8 +14,9 @@ const ListingCard = ({ listing }: { listing: IListing }) => {
     <Grid item xs={12} sm={12} md={12} lg={12}>
       <Card
         sx={{
+          mb:2,
           width: "100%",
-          height: 350, // Set a fixed height
+          height: 450, // Set a fixed height
           display: "flex",
           flexDirection: "column",
           boxShadow: 3,
@@ -41,13 +42,22 @@ const ListingCard = ({ listing }: { listing: IListing }) => {
           title={listing.title}
           subheader={"Posted On: " + new Date(listing.createdAt).toLocaleString()}
         />
-
+        <Grid container>
+        <Grid item  width={"100%"} display="flex" gap={2} p={2} flexWrap="wrap">
+            <Chip variant="filled" color="info" label={"Location :" + listing?.location}>
+            </Chip>
+            <Chip variant="filled" color="success" label={"Rent :" + listing?.rent}>
+            </Chip>
+          </Grid>
+        </Grid>
         <Divider />
 
         {/* Description */}
         <CardContent sx={{ flexGrow: 1 }}>
+
           <Typography variant="caption" sx={{ color: "text.secondary" }}>
             {listing?.description.slice(0, 50)}...
+
             <Button variant="text" size="small">
               See More
             </Button>
@@ -55,7 +65,7 @@ const ListingCard = ({ listing }: { listing: IListing }) => {
         </CardContent>
 
         {/* Actions */}
-        <CardActions sx={{ justifyContent: "space-between", pb:0 }}>
+        <CardActions sx={{ justifyContent: "space-between", pb: 0 }}>
           <Button variant="contained" size="small" color="warning">
             <HeartIcon size={16} /> Fav
           </Button>

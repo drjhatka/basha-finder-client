@@ -58,17 +58,20 @@ export default function LoginForm() {
         //redirect user to home page based on role...
 
         switch (currentUser.role) {
-          case ('admin'):setTimeout(()=>{
+          case ('admin'):
+            toast.success('admin logged in successfully')
             router.push('/admin-dashboard');
-          },1000)
+          
                 break;
-          case ('landlord'):setTimeout(()=>{
+          case ('landlord'):
+            toast.success('landlord logged in successfully')
             router.push('/landlord-dashboard');
-          },1000)
+          
                 break;
-          case ('tenant'):setTimeout(()=>{
+          case ('tenant'):
+            toast.success('tenant logged in successfully')
             router.push('/tenant-dashboard');
-          },1000)
+          
           break;
         }//end switch
         setOpen(false)

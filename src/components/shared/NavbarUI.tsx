@@ -26,6 +26,7 @@ import { createNavbarTab, generateListItemButton } from './navbar/navUtils'
 import { usePathname } from 'next/navigation'
 import { Grid } from '@material-ui/core'
 import { IAuthState } from '@/lib/actions/authSlice'
+import { User } from 'lucide-react'
 
 const NavbarUI = () => {
     const pathname = usePathname(); // Get the current route
@@ -201,7 +202,10 @@ const NavbarUI = () => {
 
                                     {/* Responsive Menus List */}
                                     <List className='DrawerList w-64 '>
-                                        {generateListItemButton({href:'/',          icon:<Home/>,               text:'Dashboard',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {authUser?.role=='tenant' && generateListItemButton({href:'/tenant-dashboard',          icon:<Home/>,               text:'Tenant Dashboard',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {authUser?.role=='landlord' && generateListItemButton({href:'/tenant-dashboard',          icon:<Home/>,               text:'Landlord Dashboard',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {authUser?.role=='admin' && generateListItemButton({href:'/admin-dashboard',          icon:<Home/>,               text:'Landlord Dashboard',            handleCloseNavMenu:handleCloseNavMenu})}
+                                        {!authUser && generateListItemButton({href:'/',          icon:<Home/>,               text:'Home',            handleCloseNavMenu:handleCloseNavMenu})}
                                         {!authUser && generateListItemButton({href:'/rentals',   icon:<ApartmentTwoTone/>,   text:'Rental Listings', handleCloseNavMenu:handleCloseNavMenu})}
                                         {!authUser && generateListItemButton({href:'/about',     icon:<Info/>,               text:'About Us',        handleCloseNavMenu:handleCloseNavMenu})}
                                         {!authUser && generateListItemButton({href:'/contact',   icon:<Message/>,            text:'Contact Us',      handleCloseNavMenu:handleCloseNavMenu})}

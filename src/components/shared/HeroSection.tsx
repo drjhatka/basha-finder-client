@@ -35,7 +35,7 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
                         onSubmit={formik.handleSubmit}
                     >
                         {/* Search Bar & Button Container */}
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <div className="lg:flex md:grid gap-5">
                             <ReactSearchAutocomplete<IListing>
                                 items={listings as IListing[]}
                                 onSelect={(item) => formik.setFieldValue("searchTerm", item.title)}
@@ -55,7 +55,7 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
                             <Button
                                 type="submit"
                                 variant="contained"
-                                style={{ paddingTop: 13, paddingBottom: 13 }}
+                                className="sm:bg-red-500 lg:mt-0"
                                 size="large"
                             >
                                 <Search /> Search listing

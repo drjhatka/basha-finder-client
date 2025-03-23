@@ -17,7 +17,7 @@ const ListingCardContainer = ({ listings, isLoading }: { listings: IListing[], i
            !user && <Typography mx={'auto'} bgcolor={'#ffffff'} width={'100%'} py={2} textAlign={'center'} variant="h4" >Explore all our Rental Listings</Typography>
 
         }
-        <div className={'grid bg-slate-300 md:grid-cols-2 lg:grid-cols-3 md:gap-5'}>
+        <div className={'grid bg-slate-300 md:grid-cols-2 lg:grid-cols-3  md:gap-5'}>
 
             {
                 isLoading ? <BackdropElement key={'loadingBackdrop'} open={!open} handleClose={() => setOpen(false)} ><CircularProgress></CircularProgress></BackdropElement> : listings?.map((listing) => {
