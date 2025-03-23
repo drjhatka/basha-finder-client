@@ -24,7 +24,7 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
                     const listingId:string|undefined = listings?.find((listing:IListing)=>listing.title==values.searchTerm)?._id
                    if(listingId) {router.push('/rentals/'+listingId)}
                    else{
-                       toast.error('Listing Not Found, Try Again')
+                       toast.error('Listing Not Found, Try Again with a defferent term')
                    }
                 }}
             >
