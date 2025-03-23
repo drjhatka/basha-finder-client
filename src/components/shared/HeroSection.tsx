@@ -47,7 +47,7 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
                                 formatResult={(item:IListing) => (
                                     <div style={{ display: "flex", flexDirection: "column", padding: "10px" }}>
                                         <span style={{ fontWeight: "bold" }}>{item.title}</span>
-                                        <span style={{ fontSize: "12px", color: "gray" }}>{item.location}</span>
+                                        <span style={{ fontSize: "10px", color: "gray" }}>{item.location}</span>
                                     </div>
                                 )}
                             />

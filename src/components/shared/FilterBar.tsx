@@ -63,7 +63,7 @@ const FilterBar = () => {
                     onSubmit={handleFilterSubmit}
                 >
                     {({ values, setFieldValue, handleSubmit }) => (
-                        <form className="w-full flex flex-col items-center gap-4" onSubmit={handleSubmit}>
+                        <form className="w-full flex z-1 flex-col items-center gap-4" onSubmit={handleSubmit}>
                             <Grid container spacing={4} alignItems="center">
                                 {/* Price Range */}
                                 <Grid item xs={12} sm={12} lg={3} mx={'auto'} >
