@@ -20,6 +20,7 @@ import {useAppDispatch} from "@/lib/hooks";
 import {setUser} from "@/lib/actions/authSlice";
 import { Button, CircularProgress } from "@mui/material";
 import BackdropElement from "@/components/ui/backdrop";
+import { Login } from "@mui/icons-material";
 
 export default function LoginForm() {
    const [open, setOpen] = useState<boolean>(false)
@@ -94,16 +95,16 @@ export default function LoginForm() {
       open ?     <BackdropElement open={open} handleClose={handleClose} >
         <CircularProgress color="inherit" />
       </BackdropElement>:
-      <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-      <div className="flex items-center space-x-4 ">
+      <div className=" rounded-xl flex-grow  max-w-md w-full p-5">
+      <div className="flex items-center space-x-4">
         {/* <Logo /> */}
-        <div>
-          <h1 className="text-xl font-semibold">Login</h1>
-          <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
+        <div className="w-full flex justify-center bg-orange-500 text-white items-center gap-5 text-center shadow-lg py-3 border-2 rounded-xs">
+          <Login></Login><h1 className="text-xl   font-semibold">Login To Rentopia</h1>
+
         </div>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form className=" px-2 py-10 "  onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="email"
@@ -111,7 +112,7 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field}  value={field.value || ""} />
+                  <Input   type="email" {...field}  value={field.value || ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

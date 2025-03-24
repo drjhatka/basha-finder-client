@@ -10,7 +10,7 @@ const CreateListingPage = () => {
     
     return (
         <div>
-            <CreateListingForm user={user} />
+            <CreateListingForm fetch={()=>{}} user={user} />
         </div>
     );
 };

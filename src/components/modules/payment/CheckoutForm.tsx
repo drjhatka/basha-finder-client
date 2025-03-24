@@ -55,11 +55,8 @@ const CheckoutForm = ({listing, request}:{listing:IListing, request:IRequest}) =
   };
 
   return (
-    <Box className="mt-40 p-4 border-2 rounded-md max-w-lg mx-auto">
-        <Box className="mb-10 border-b-2" color={'red'}>
-            Confirm ${listing?.rent} Payment for {listing?.title}
-                            
-        </Box>
+    <Box className="mt-5 mb-5 p-4 border-2 rounded-md max-w-lg mx-auto">
+        
       <form onSubmit={onSubmit}>
         {/* Card Number Input */}
         <Box className="mb-4">

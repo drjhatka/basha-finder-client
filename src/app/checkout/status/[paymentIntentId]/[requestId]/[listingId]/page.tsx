@@ -69,10 +69,10 @@ const PaymentStatusPage = () => {
   };
 
   return (
-    <div className="mt-32">
+    <div className="mt-20 bg-white">
       {paymentStatus ? (
         <div>
-          <div className="flex flex-col justify-center items-center gap-5">
+          <div className="flex text-red-700 flex-col justify-center items-center gap-5">
             <h1>Payment Status: {paymentStatus.status}</h1>
             <p>Transaction ID: {paymentStatus.id}</p>
             <p>Status: {paymentStatus.status}</p>
@@ -92,7 +92,7 @@ const PaymentStatusPage = () => {
             </PDFViewer>
 
             {/* 🔹 Button to Download Receipt */}
-            <div className="mt-20">
+            <div className=" flex justify-center items-start mt-20">
               <Button onClick={handleDownload} variant="contained">
                 Download Receipt
               </Button>

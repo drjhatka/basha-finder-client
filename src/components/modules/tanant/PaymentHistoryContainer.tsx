@@ -2,6 +2,7 @@
 import { getAllPaymentsByTenantID } from "@/app/actions/PaymentActions";
 import { IPayment } from "@/types/payment";
 import { useEffect, useState } from "react";
+import PaymentInfoCard from "../payment/LandlordPaymentHitoryCard";
 
 const PaymentHistoryContainer = ({userId}:{userId:string}) => {
     const [payments, setPayments ] = useState<IPayment[]>()
@@ -18,8 +19,10 @@ const PaymentHistoryContainer = ({userId}:{userId:string}) => {
     },[])
     console.log('pay', payments)
     return (
-        <div>
-            {payments?.length}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {
+                payments?.map(payment=><PaymentInfoCard payment={payment} key={payment._id}></PaymentInfoCard>)
+            }
         </div>
     );
 };
