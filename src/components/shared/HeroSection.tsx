@@ -1,15 +1,15 @@
 "use client"
-import { Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { Search } from "@mui/icons-material";
 import { Button, Grid2 } from "@mui/material";
 import { Formik } from "formik";
 import { IListing } from "@/types/listing";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { useRouter} from "next/navigation";
-import {toast} from "sonner";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) => {
-    const router=  useRouter()
+export const HeroSection = ({ listings }: { listings: IListing[] | undefined | null }) => {
+    const router = useRouter()
     return (
         <Grid2 size={{ lg: 12 }} sx={{ background: "#3cb6d3" }}>
             <Grid2>
@@ -19,13 +19,13 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
 
             <Formik
                 initialValues={{ searchTerm: '' }}
-                onSubmit={(values:  {searchTerm:string}) => {
+                onSubmit={(values: { searchTerm: string }) => {
                     //const listingId = values.searchTerm
-                    const listingId:string|undefined = listings?.find((listing:IListing)=>listing.title==values.searchTerm)?._id
-                   if(listingId) {router.push('/rentals/'+listingId)}
-                   else{
-                       toast.error('Listing Not Found, Try Again with a different term')
-                   }
+                    const listingId: string | undefined = listings?.find((listing: IListing) => listing.title == values.searchTerm)?._id
+                    if (listingId) { router.push('/rentals/' + listingId) }
+                    else {
+                        toast.error('Listing Not Found, Try Again with a different term')
+                    }
                 }}
             >
                 {formik => (
@@ -35,33 +35,35 @@ export const HeroSection = ({ listings }:{listings:IListing[]|undefined|null}) =
                         onSubmit={formik.handleSubmit}
                     >
                         {/* Search Bar & Button Container */}
-                        <div className="lg:flex md:grid gap-5">
-                            <ReactSearchAutocomplete<IListing>
-                                items={listings as IListing[]}
-                                onSelect={(item) => formik.setFieldValue("searchTerm", item.title)}
-                                onSearch={(query) => formik.setFieldValue("searchTerm", query)}
-                                placeholder={'Search Thousands of houses, apartments in major cities'}
-                                fuseOptions={{ keys: ["title", "description","location" ] }}
-                                resultStringKeyName="title"
-                                className={'flex-1'}
-                                formatResult={(item:IListing) => (
-                                    <div style={{ display: "flex", flexDirection: "column", padding: "10px" }}>
-                                        <span style={{ fontWeight: "bold" }}>{item.title}</span>
-                                        <span style={{ fontSize: "10px", color: "gray" }}>{item.location}</span>
-                                    </div>
-                                )}
-                            />
-
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                className="sm:bg-red-500 lg:mt-0"
-                                size="large"
-                            >
-                                <Search /> Search listing
-                            </Button>
-                        </div>
-
+                        <Grid container spacing={2}>
+                            <Grid xs={12} md={8} lg={9} item >
+                                <ReactSearchAutocomplete<IListing>
+                                    items={listings as IListing[]}
+                                    onSelect={(item) => formik.setFieldValue("searchTerm", item.title)}
+                                    onSearch={(query) => formik.setFieldValue("searchTerm", query)}
+                                    placeholder={'Search Thousands of listings in major cities'}
+                                    fuseOptions={{ keys: ["title", "description", "location"] }}
+                                    resultStringKeyName="title"
+                                    className={'flex-1'}
+                                    formatResult={(item: IListing) => (
+                                        <div style={{ display: "flex", flexDirection: "column", padding: "10px" }}>
+                                            <span style={{ fontWeight: "bold" }}>{item.title}</span>
+                                            <span style={{ fontSize: "10px", color: "gray" }}>{item.location}</span>
+                                        </div>
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item style={{margin:'auto'}} xs={6} md={4} lg={3}>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    className="sm:bg-red-500 lg:mt-0"
+                                    size="large"
+                                >
+                                    <Search /> Search listing
+                                </Button>
+                            </Grid>
+                        </Grid>
                         {formik.touched.searchTerm && formik.errors.searchTerm ? (
                             <div>{formik.errors.searchTerm}</div>
                         ) : null}

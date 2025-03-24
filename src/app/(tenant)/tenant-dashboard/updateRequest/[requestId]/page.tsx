@@ -1,5 +1,4 @@
 "use client"
-import RentalRequestForm from '@/components/modules/request/RentalRequestCreateForm';
 import RentalRequestUpdateForm from '@/components/modules/request/RentalRequestUpdateForm';
 import { Grid } from '@material-ui/core';
 import React from 'react';
