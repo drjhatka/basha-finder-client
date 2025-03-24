@@ -65,7 +65,7 @@ const RentalRequestUpdateForm = () => {
     initialValues: {
       message: filteredRequest?.message,
       requestDate: filteredRequest?.requestDate,
-      moveInDate:(filteredRequest?.moveInDate)?.toISOString().split("T")[0]  ,
+      moveInDate: filteredRequest?.moveInDate ? new Date(filteredRequest.moveInDate).toISOString().split("T")[0] : "", // Default to empty string if null or undefined ,
     },
     validationSchema: Yup.object({
       message: Yup.string().required("Message is required"),
@@ -140,7 +140,7 @@ const RentalRequestUpdateForm = () => {
           {/* ✅ Submit Button */}
           <Button disabled={isSuccess} startIcon={isLoading && <Loop />} endIcon={isSuccess && <DoneOutline />} type="submit" variant="contained" size="large" color="warning">
             {
-              isLoading ? "Submitting..." : (isSuccess ? "Request Submitted" : "Submit Request")
+              isLoading ? "Submitting..." : (isSuccess ? "Updated Request Submitted" : "Update Request")
             }
           </Button>
         </Grid2>

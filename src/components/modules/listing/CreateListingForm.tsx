@@ -65,15 +65,19 @@ const validationSchema = Yup.object({
     }).required("At Least One Image is required"))
 })
 
-const CreateListingForm = ({user}:{user:IAuthState|null}) => {
+const CreateListingForm = ( {user, fetch}:{user:IAuthState|null, fetch:(() => void) | undefined}) => {
     const [openForm, setOpenForm] = useState(false)
-    const [createPost ]= useCreateListingMutation()
+    const [createPost  ]= useCreateListingMutation()
+
     const onSubmit = async(values: FormikValues) => {
         const imgList = extractUrlArrayFromImages(values.images);
         const newListing ={...values, images:imgList,landlordId:user?.userId, availability:'available'};
         const result = await createPost(newListing);
         if(result?.data){
             toast.success('Listing Created Successfully')
+            if(fetch){
+                fetch()
+            }
             return
         }
         toast.error('Something Went Wrong, Please Try Again!')
