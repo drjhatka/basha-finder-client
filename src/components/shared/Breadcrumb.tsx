@@ -2,22 +2,22 @@ import { Grid } from '@material-ui/core';
 import { Home } from '@mui/icons-material';
 import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Breadcrumb = ({ links }: { links: string[] }) => {
+const Breadcrumb = ({ links }: { links: {href:string,title:string, icon:ReactNode}[] }) => {
     return (
         <Grid className=' py-3'>
         <Breadcrumbs  aria-label="breadcrumb">
             {
-                links.map((link: string, index:number) => 
+                links.map( (link:{href:string,title:string, icon:ReactNode}) => 
                   <Link
-                        
+                       key={link.title} 
                         style={{ display: 'flex', alignItems: 'center' }}
                         color="inherit"
-                        href={link}
+                        href={link.href}
                     >
-                       {index==0 && <Home sx={{ mr: 0.5 }} fontSize="inherit" />}
-                        {link.toUpperCase()}
+                       {link.icon}
+                        {link.title}
                     </Link>
                 )
             }

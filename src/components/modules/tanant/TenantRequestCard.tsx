@@ -62,7 +62,7 @@ const TenantRequestCard: React.FC<TenantRequestCardProps> = ({ request, handleCa
                 {
                     request.status == 'pending' && <Grid2 container spacing={2}>
 
-                        <Button size="small" color="primary" variant="contained">
+                        <Button href={"/tenant-dashboard/updateRequest/"+request._id} size="small" color="primary" variant="contained">
                             Update
                         </Button>
                         <Button startIcon={<Cancel />} size="small" onClick={() => handleCancelRequest(request?._id as string)} color="error" variant="outlined">

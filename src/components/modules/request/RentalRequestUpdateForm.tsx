@@ -11,23 +11,28 @@ import { RootState } from "@/lib/store";
 import { IAuthState } from "@/lib/actions/authSlice";
 import { useContext, useState} from "react";
 import { DataContext } from "@/context/DataContext";
-import { useCreateRequestMutation } from "@/lib/api/requestApi";
+import { useCreateRequestMutation, useUpdateRequestMutation } from "@/lib/api/requestApi";
 import Image from "next/image";
 import Breadcrumb from "@/components/shared/Breadcrumb";
 import BackdropElement from "@/components/ui/backdrop";
 import { useRouter } from "next/navigation";
+import { request } from "http";
+import { InputLabel } from "@material-ui/core";
 
 
-const RentalRequestCreateForm = () => {
+const RentalRequestUpdateForm = () => {
   const data = useContext(DataContext)
+  const requests = data?.requestData
   const listings = data?.listingData
-  const listingId = useParams().listingId;
+  const requestId = useParams().requestId;
   const router= useRouter()
   const authUser: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState | null;
 
-  const filteredListings = listings?.find(item => item._id == listingId)
+  //const filteredListings = listings?.find(item => item._id == listingId)
+  const filteredRequest = requests?.find(item => item._id == requestId )
 
-  const [createRequest, { isLoading, isSuccess }] = useCreateRequestMutation()
+  console.log(filteredRequest)
+  const [updateRequest, { isLoading, isSuccess }] = useUpdateRequestMutation()
 
   const [open, setOpen] = useState(true)
   const handleClose =()=>{
@@ -37,19 +42,16 @@ const RentalRequestCreateForm = () => {
   }
   const onSubmit = async (values: FormikValues, { resetForm }: { resetForm: () => void }) => {
     try {
-      const newRequest = {
-        listingId: listingId,
-        tenantId: authUser?.userId,
-        landlordId: filteredListings?.landlordId,
+      const updatedRequest = {
         message: values.message,
         requestDate: values.requestDate,
         moveInDate: values.moveInDate,
-        tenantPhone: '',
+        //tenantPhone: '',
         tenantEmail: authUser?.email
       }
-       const res =await createRequest(newRequest)
+       const res =await updateRequest({id:requestId ,body:updatedRequest})
         console.log(res)
-      toast.success("Rental request submitted successfully!");
+      toast.success("Rental request updated successfully!");
       //router.push('/tenant-dashboard?tab=2')
       resetForm();
     } catch (error) {
@@ -59,10 +61,11 @@ const RentalRequestCreateForm = () => {
   }
 
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: {
-      message: "",
-      requestDate: new Date().toISOString().split("T")[0], // Default to today
-      moveInDate: new Date().toISOString().split("T")[0],
+      message: filteredRequest?.message,
+      requestDate: filteredRequest?.requestDate,
+      moveInDate:(filteredRequest?.moveInDate)?.toISOString().split("T")[0]  ,
     },
     validationSchema: Yup.object({
       message: Yup.string().required("Message is required"),
@@ -84,23 +87,23 @@ const RentalRequestCreateForm = () => {
               {
                 href:'/tenant-dashboard?tab=2',
                 icon:<Edit></Edit> ,
-                title:' Create Request'
+                title:' Update Request'
               }
             ]}></Breadcrumb>
 
-      <Image width={250} height={150} objectFit="cover" alt={'image'} src={filteredListings?.images[0]?? "/house1.jpeg"} ></Image>
       <Typography variant="h5" gutterBottom>
-        Create Rental Request for {filteredListings && filteredListings?.title}
+        Update Rental Request 
       </Typography>
 
       {/* Message */}
+      <InputLabel>Message</InputLabel>
       <TextField
         fullWidth
-        label="Message"
+        
         name="message"
         multiline
         rows={3}
-        //value={formik.values.message}
+        value={formik.values.message}
         onChange={formik.handleChange}
         error={formik.touched.message && Boolean(formik.errors.message)}
         helperText={formik.touched.message && formik.errors.message}
@@ -114,6 +117,7 @@ const RentalRequestCreateForm = () => {
         type="date"
         sx={{ marginBottom: '20px' }}
         fullWidth
+        //defaultValue={filteredRequest?.message}
         InputLabelProps={{ shrink: true }}
         value={formik.values.moveInDate}
         onChange={formik.handleChange}
@@ -147,4 +151,4 @@ const RentalRequestCreateForm = () => {
   );
 };
 
-export default RentalRequestCreateForm;
+export default RentalRequestUpdateForm;

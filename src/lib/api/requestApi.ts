@@ -24,6 +24,14 @@ export const requestApi = emptySplitApi.injectEndpoints({
                 //credentials:'same-origin',
             })
         }),
+        updateRequest: build.mutation({
+            query:({id, body})=>({
+                url:'/request/'+id,
+                method:'PATCH',
+                body
+                //credentials:'same-origin',
+            })
+        }),
         completeRequest: build.mutation({
             query:({body, id})=>({
                 url:'/request/'+id+"/complete",
@@ -42,5 +50,5 @@ export const requestApi = emptySplitApi.injectEndpoints({
     overrideExisting: false,
 })
 
-export const { useCreateRequestMutation,useGetAllRequestsQuery, useCompleteRequestMutation, useGetRequestsByTenantIDQuery, useGetRequestsByLandlordIDQuery, useCancelRequestMutation } = requestApi
+export const { useCreateRequestMutation,useGetAllRequestsQuery, useUpdateRequestMutation, useCompleteRequestMutation, useGetRequestsByTenantIDQuery, useGetRequestsByLandlordIDQuery, useCancelRequestMutation } = requestApi
 export default requestApi.reducer;

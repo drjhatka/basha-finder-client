@@ -13,9 +13,12 @@ import { DataContext } from '@/context/DataContext';
 import { useGetPaymentsByTenantIDQuery } from '@/lib/api/paymentApi';
 import PaymentHistoryContainer from './PaymentHistoryContainer';
 import { getAllPaymentsByTenantID } from '@/app/actions/PaymentActions';
+import { useSearchParams } from 'next/navigation';
 
 const TenantTabsContainer = () => {
-    const [value, setValue] = useState<string>('1');
+    //const searchParams = useSearchParams<{tab:string}>(undefined)
+    //alert(searchParams)
+    const [value, setValue] = useState<string>("1");
     //Load All Listings and Requests from data context...
     const dataContext = useContext(DataContext);
 

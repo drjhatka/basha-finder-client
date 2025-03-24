@@ -1,17 +1,18 @@
 "use client"
 import RentalRequestForm from '@/components/modules/request/RentalRequestCreateForm';
+import RentalRequestUpdateForm from '@/components/modules/request/RentalRequestUpdateForm';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 
-const CreateRequestPage = () => {
+const UpdateRequestPage = () => {
   
   return (
     <Grid container >
       <Grid item lg={12}>
-      <RentalRequestForm />
+      <RentalRequestUpdateForm></RentalRequestUpdateForm>
       </Grid>
     </Grid>
   );
 };
 
-export default CreateRequestPage;
+export default UpdateRequestPage;
