@@ -37,27 +37,29 @@ export const HeroSection = ({ listings }: { listings: IListing[] | undefined | n
                         {/* Search Bar & Button Container */}
                         <Grid container spacing={2}>
                             <Grid xs={12} md={8} lg={9} item >
-                                <ReactSearchAutocomplete<IListing>
-                                    items={listings as IListing[]}
-                                    onSelect={(item) => formik.setFieldValue("searchTerm", item.title)}
-                                    onSearch={(query) => formik.setFieldValue("searchTerm", query)}
-                                    placeholder={'Search Thousands of listings in major cities'}
-                                    fuseOptions={{ keys: ["title", "description", "location"] }}
-                                    resultStringKeyName="title"
-                                    className={'flex-1'}
-                                    formatResult={(item: IListing) => (
-                                        <div style={{ display: "flex", flexDirection: "column", padding: "10px" }}>
-                                            <span style={{ fontWeight: "bold" }}>{item.title}</span>
-                                            <span style={{ fontSize: "10px", color: "gray" }}>{item.location}</span>
-                                        </div>
-                                    )}
-                                />
+                                <div style={{ position: "relative", width: "100%", zIndex:1000 }}>
+                                    <ReactSearchAutocomplete<IListing>
+                                        items={listings as IListing[]}
+                                        onSelect={(item) => formik.setFieldValue("searchTerm", item.title)}
+                                        onSearch={(query) => formik.setFieldValue("searchTerm", query)}
+                                        placeholder={'Search Thousands of listings in major cities'}
+                                        fuseOptions={{ keys: ["title", "description", "location"] }}
+                                        resultStringKeyName="title"
+                                        className={'flex-1'}
+                                        formatResult={(item: IListing) => (
+                                            <div style={{ display: "flex", flexDirection: "column", padding: "15px", zIndex: 9999 }}>
+                                                <span style={{ fontWeight: "bold" }}>{item.title}</span>
+                                                <span style={{ fontSize: "10px", color: "gray" }}>{item.location}</span>
+                                            </div>
+                                        )}
+                                    />
+                                </div>
                             </Grid>
-                            <Grid item style={{margin:'auto'}} xs={6} md={4} lg={3}>
+                            <Grid item style={{ margin: 'auto' }} xs={6} md={4} lg={3}>
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    className="sm:bg-red-500 lg:mt-0"
+                                    style={{ position: 'relative' }}
                                     size="large"
                                 >
                                     <Search /> Search listing
