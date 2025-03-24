@@ -52,7 +52,7 @@ const FilterBar = () => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} borderBottom={2} py={2} mb={2} bgcolor={"white"} boxShadow={2} px={4}>
+            <Grid item border={2} xs={12} py={2} mb={2} lg={12} bgcolor={"white"} boxShadow={2} px={4}>
                 <Typography variant="h5" className="border-b-2 w-full py-5 text-center">
                     Check out our Latest Rental Listings
                 </Typography>
@@ -63,10 +63,10 @@ const FilterBar = () => {
                     onSubmit={handleFilterSubmit}
                 >
                     {({ values, setFieldValue, handleSubmit }) => (
-                        <form className="w-full flex z-1 flex-col items-center gap-4" onSubmit={handleSubmit}>
-                            <Grid container spacing={4} alignItems="center">
+                        <form className="w-full z-1 " onSubmit={handleSubmit}>
+                            <Grid container spacing={2} alignItems="center">
                                 {/* Price Range */}
-                                <Grid item xs={12} sm={12} lg={3} mx={'auto'} >
+                                <Grid item xs={10} sm={10} md={4} lg={3} mx={'auto'} >
                                     <InputLabel>Price Range</InputLabel>
                                     <Slider
                                         value={values.price}
@@ -80,9 +80,11 @@ const FilterBar = () => {
                                 </Grid>
 
                                 {/* Apartment Type */}
-                                <Grid item xs={12} sm={4}>
-                                    <InputLabel sx={{ mb: 2 }}>Apartment Types</InputLabel>
-                                    <Select
+                                <Grid item mx={'auto'} xs={10}  md={4} sm={10} lg={4}>
+                                    <Box display={'flex'} gap={4} alignItems={'center'} >
+                                    <Typography color="secondary" variant="body2"> Types</Typography>
+                                    <Select 
+                                        sx={{width:'50%'}}
                                         value={values.type}
                                         fullWidth
                                         displayEmpty
@@ -95,10 +97,11 @@ const FilterBar = () => {
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                    </Box>
                                 </Grid>
 
                                 {/* Apply Button */}
-                                <Grid item xs={12} sm={4} display="flex" alignItems="center">
+                                <Grid item pt={4} display={'flex'} xs={12} sm={12} md={3} lg={3} justifyContent={'center'}  alignItems={'center'}>
                                     <Button type="submit" variant="contained" color="primary">
                                         <FilterAlt /> Apply Filters
                                     </Button>
