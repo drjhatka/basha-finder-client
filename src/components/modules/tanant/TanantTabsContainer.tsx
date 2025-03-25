@@ -14,6 +14,7 @@ import { useGetPaymentsByTenantIDQuery } from '@/lib/api/paymentApi';
 import PaymentHistoryContainer from './PaymentHistoryContainer';
 import { getAllPaymentsByTenantID } from '@/app/actions/PaymentActions';
 import { useSearchParams } from 'next/navigation';
+import StickyHeadTable from '@/components/shared/StickyHeadTable';
 
 const TenantTabsContainer = () => {
     //const searchParams = useSearchParams<{tab:string}>(undefined)
@@ -51,8 +52,9 @@ const TenantTabsContainer = () => {
                     <ListingCardContainer listings ={listings} isLoading={isLoading} />
                 </TabPanel>
 
-                <TabPanel value="2">
-                    <TenantRequestCardContainer requests={pendingRequests?.data} isLoading={pendingLoading} refetch={pendingRefetch}  />
+                <TabPanel value="2" sx={{width:"100%"}}>
+                    <StickyHeadTable requestData={pendingRequests?.data} refetch={pendingRefetch}></StickyHeadTable>
+                    {/* <TenantRequestCardContainer requests={pendingRequests?.data} isLoading={pendingLoading} refetch={pendingRefetch}  /> */}
                 </TabPanel>
 
 
