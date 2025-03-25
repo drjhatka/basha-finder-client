@@ -2,7 +2,7 @@
 import { getListings } from "@/app/actions/ListingActions";
 import { Typography } from "@material-ui/core";
 import { FilterAlt } from "@mui/icons-material";
-import { Box, Button, Grid, InputLabel, Slider, MenuItem, Select } from "@mui/material";
+import { Box, Button, Grid, InputLabel, Slider, MenuItem, Select, Container } from "@mui/material";
 import ListingCard from "../modules/listing/ListingCard";
 import { useEffect, useState } from "react";
 import { IListing } from "@/types/listing";
@@ -10,10 +10,10 @@ import { Formik } from "formik";
 
 const FilterBar = () => {
     const priceRange = [
-        { value: 1000, label: "$1000" },
-        { value: 2000, label: "$2000" },
-        { value: 3000, label: "$3000" },
-        { value: 4000, label: "$4000" },
+        { value: 1000, label: "$1K" },
+        { value: 2000, label: "$2K" },
+        { value: 3000, label: "$3K" },
+        { value: 4000, label: "$4K" },
     ];
     
     const apartmentTypes = ["Apartment", "Condo", "House"];
@@ -52,8 +52,8 @@ const FilterBar = () => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item border={2} xs={12} py={2} mb={2} lg={12} bgcolor={"white"} boxShadow={2} px={4}>
-                <Typography variant="h5" className="border-b-2 w-full py-5 text-center">
+            <Grid item  xs={12} py={2} mb={2} lg={12} bgcolor={"white"} boxShadow={2} px={4}>
+                <Typography variant="h6" className="shadow-lg  bg-orange-600 text-white mb-3 w-full py-5 text-center">
                     Check out our Latest Rental Listings
                 </Typography>
                 
@@ -63,12 +63,13 @@ const FilterBar = () => {
                     onSubmit={handleFilterSubmit}
                 >
                     {({ values, setFieldValue, handleSubmit }) => (
-                        <form className="w-full z-1 " onSubmit={handleSubmit}>
+                        <form className="w-full z-1 mt-4 " onSubmit={handleSubmit}>
                             <Grid container spacing={2} alignItems="center">
                                 {/* Price Range */}
-                                <Grid item xs={10} sm={10} md={4} lg={3} mx={'auto'} >
-                                    <InputLabel>Price Range</InputLabel>
+                                <Grid item display={'flex'} alignItems={'center'}  gap={4} xs={10} sm={10} md={4} lg={4} mx={'auto'} >
+                                    <InputLabel color="warning">Rent</InputLabel>
                                     <Slider
+                                        sx={{width:'70%'}}
                                         value={values.price}
                                         step={1000}
                                         marks={priceRange}
@@ -84,7 +85,7 @@ const FilterBar = () => {
                                     <Box display={'flex'} gap={4} alignItems={'center'} >
                                     <Typography color="secondary" variant="body2"> Types</Typography>
                                     <Select 
-                                        sx={{width:'50%'}}
+                                        sx={{width:'100%'}}
                                         value={values.type}
                                         fullWidth
                                         displayEmpty
@@ -113,10 +114,11 @@ const FilterBar = () => {
             </Grid>
 
             {/* Listings Grid */}
-            <Grid container spacing={2}>
+            <Container>
+            <Grid container spacing={2} >
                 {filteredListings.length > 0 ? (
                     filteredListings.slice(0, 6).map((item: IListing) => (
-                        <Grid item key={item._id} lg={4} md={6} sm={12} xs={12}>
+                        <Grid mt={1} item key={item._id} lg={4} md={6} sm={12} xs={12}>
                             <ListingCard listing={item} />
                         </Grid>
                     ))
@@ -126,7 +128,7 @@ const FilterBar = () => {
                     </Typography>
                 )}
             </Grid>
-
+            </Container>
             {/* Button to View All Listings */}
             <Grid item mx={"auto"} marginY={5}>
                 <Button href="/rentals" variant="contained" color="secondary">
@@ -134,6 +136,8 @@ const FilterBar = () => {
                 </Button>
             </Grid>
         </Grid>
+
+
     );
 };
 
