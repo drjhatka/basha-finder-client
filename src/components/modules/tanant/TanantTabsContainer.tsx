@@ -10,16 +10,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import TenantRequestCardContainer from './TenantRequestCardContainer';
 import { DataContext } from '@/context/DataContext';
-import { useGetPaymentsByTenantIDQuery } from '@/lib/api/paymentApi';
 import PaymentHistoryContainer from './PaymentHistoryContainer';
-import { getAllPaymentsByTenantID } from '@/app/actions/PaymentActions';
-import { useSearchParams } from 'next/navigation';
 import StickyHeadTable from '@/components/shared/StickyHeadTable';
+import { useRouter } from 'next/navigation';
 
 const TenantTabsContainer = ({tab}:{tab:string}) => {
-    //const searchParams = useSearchParams<{tab:string}>(undefined)
-    //alert(searchParams)
     const [value, setValue] = useState<string>(tab||"1");
+    const router = useRouter()
+   
     //Load All Listings and Requests from data context...
     const dataContext = useContext(DataContext);
 
@@ -32,10 +30,12 @@ const TenantTabsContainer = ({tab}:{tab:string}) => {
     //getApproved and Pending requests for this tenant...
     const {data:pendingRequests, isLoading:pendingLoading, refetch:pendingRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"pending" })
     const {data:approvedRequests, isLoading:approvedLoading, refetch:approvedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"approved" })
-    //const {data:completedRequests, isLoading:completedLoading, refetch:completedRefetch} = useGetRequestsByTenantIDQuery({id:user?.userId, status:"completed" })
+    
     //define handle change event
     const handleChange = (event:SyntheticEvent<Element, Event>, newValue:string) => {
         setValue(newValue); // Update the active tab
+        //append value to url as search query sample /tenant-dashboard?tab=2
+        router.push(`/tenant-dashboard?tab=${newValue}`);
     };
 
     return (

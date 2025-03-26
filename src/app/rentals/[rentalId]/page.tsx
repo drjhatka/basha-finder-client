@@ -6,22 +6,30 @@ import { createSlideImageFromArray } from '@/lib/utils';
 import { IListing } from '@/types/listing';
 import { format } from 'date-fns'
 import { Typography } from '@material-ui/core';
-import { ApartmentTwoTone, DiningSharp, Map, Mouse, RequestQuote } from '@mui/icons-material';
+import { ApartmentTwoTone, DiningSharp, Home, KeyboardReturn, Map, Mouse, RequestQuote } from '@mui/icons-material';
 import { Box, Button, Chip, Grid2, Paper, Stack } from '@mui/material';
 import { useParams } from 'next/navigation';
 import React, { useContext } from 'react';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useSelector } from 'react-redux';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 const ViewRentalPage = () => {
     const contextData = useContext(DataContext)
-    const user: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth) as IAuthState | null;
+    const user: IAuthState | null = useSelector((state: RootState) => state.rootReducers.auth as IAuthState | null) ;
     const rentalId = useParams().rentalId
 
     const data: IListing[] | undefined = contextData?.listingData?.filter((item: IListing) => item._id == rentalId)
 
     return (
+        <>
+        <Stack    alignItems={'center'}  textAlign={'center'} display={'flex'} justifyContent={'center'}>
+            {
+                user && user?.role=='tenant'  && <Breadcrumb  links={[{href:'/tenant-dashboard?tab=1', icon:<KeyboardReturn/>,title:'Back To Dashboard'}]}></Breadcrumb>
+            }
+
+        </Stack>
         <div className="bg-white ">
             {data && contextData?.listingData && <Grid2 container key={'view-listing'}>  <Grid2 size={{ md: 12, lg: 6 }} mt={5} >
                 <ImageGallery showBullets additionalClass='w-full' items={data[0]?.images && createSlideImageFromArray(data[0]?.images)}></ImageGallery>
@@ -76,6 +84,7 @@ const ViewRentalPage = () => {
             </Grid2>
             }
         </div>
+        </>
     );
 };
 

@@ -8,7 +8,7 @@ const TenantDashboard =  () => {
     const tabIndex= params.get('tab')
     return (
         <Grid container>
-            <TenantTabsContainer tab={tabIndex} />
+            <TenantTabsContainer tab={tabIndex as string} />
         </Grid>
     );
 };

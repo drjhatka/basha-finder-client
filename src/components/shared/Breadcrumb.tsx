@@ -6,13 +6,13 @@ import React, { ReactNode } from 'react';
 
 const Breadcrumb = ({ links }: { links: {href:string,title:string, icon:ReactNode}[] }) => {
     return (
-        <Grid className=' py-3'>
+        <Grid className='mt-5 py-3'>
         <Breadcrumbs  aria-label="breadcrumb">
             {
                 links.map( (link:{href:string,title:string, icon:ReactNode}) => 
                   <Link
                        key={link.title} 
-                        style={{ display: 'flex', alignItems: 'center' }}
+                        style={{ display: 'flex', alignItems: 'center', color:'purple', cursor:'pointer', border:2 }}
                         color="inherit"
                         href={link.href}
                     >
