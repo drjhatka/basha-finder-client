@@ -11,10 +11,11 @@ import { IRequest } from '@/types/request';
 import { format } from 'date-fns';
 import { DataContext } from '@/context/DataContext';
 import { IListing } from '@/types/listing';
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { Apartment, ApartmentTwoTone, CalendarMonth, Delete, Edit, LocationOn, LocationOnSharp, Message, SignalCellular0BarOutlined } from '@mui/icons-material';
 import { useCancelRequestMutation } from '@/lib/api/requestApi';
 import { toast } from 'sonner';
+import { Typography } from '@material-ui/core';
 
 
 export default function StickyHeadTable({ requestData, refetch }: { requestData: IRequest[], refetch:()=>void }) {
@@ -43,6 +44,10 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
         }
 
     return (
+        <>
+        <Box mb={3} borderBottom={2} textAlign={'center'} color={'white'} bgcolor={'steelblue'} py={2}>
+            <Typography variant='h5' >List of Pending Requests</Typography>
+        </Box>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
@@ -110,5 +115,6 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
+        </>
     );
 }
