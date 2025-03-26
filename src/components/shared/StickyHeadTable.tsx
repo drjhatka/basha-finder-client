@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 import { DataContext } from '@/context/DataContext';
 import { IListing } from '@/types/listing';
 import { Box, Button, Stack } from '@mui/material';
-import { Apartment, ApartmentTwoTone, CalendarMonth, Delete, Edit, LocationOn, LocationOnSharp, Message, SignalCellular0BarOutlined } from '@mui/icons-material';
+import { Apartment, ApartmentTwoTone, CalendarMonth, Cancel, Delete, Edit, LocationOn, LocationOnSharp, Message, SignalCellular0BarOutlined } from '@mui/icons-material';
 import { useCancelRequestMutation } from '@/lib/api/requestApi';
 import { toast } from 'sonner';
 import { Typography } from '@material-ui/core';
@@ -23,7 +23,7 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
     const getListing = (listingId: string) => {
         return dataContext?.listingData?.find((listing: IListing) => listing._id == listingId)
     }
-    console.log('listing', getListing(requestData[0].message), requestData)
+    //console.log('listing', getListing(requestData[0].message), requestData)
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -48,7 +48,7 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
         <Box mb={3} borderBottom={2} textAlign={'center'} color={'white'} bgcolor={'steelblue'} py={2}>
             <Typography variant='h5' >List of Pending Requests</Typography>
         </Box>
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '100%', overflow: 'auto' }} >
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -93,8 +93,8 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
                                             </TableCell>
                                             <TableCell >
                                                 <Stack  spacing={2}>
-                                                    <Button  startIcon={<Edit></Edit>} variant='outlined' color='success' size='small' href={'/tenant-dashboard/updateRequest/'+req._id}>Edit</Button>
-                                                    <Button onClick={()=>handleCancelRequest(req._id as string)}  startIcon={<Delete></Delete>} variant='outlined' color='error' size='small'>Cancel</Button>
+                                                    <Button  startIcon={<Edit></Edit>} variant='outlined' color='success'  href={'/tenant-dashboard/updateRequest/'+req._id}>Edit</Button>
+                                                    <Button onClick={()=>handleCancelRequest(req._id as string)}  startIcon={<Delete></Delete>} variant='outlined' color='error' >Cancel</Button>
 
                                                 </Stack>
                                             </TableCell>
@@ -108,7 +108,7 @@ export default function StickyHeadTable({ requestData, refetch }: { requestData:
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={requestData.length}
+                count={requestData?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

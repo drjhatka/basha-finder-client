@@ -16,10 +16,10 @@ import { getAllPaymentsByTenantID } from '@/app/actions/PaymentActions';
 import { useSearchParams } from 'next/navigation';
 import StickyHeadTable from '@/components/shared/StickyHeadTable';
 
-const TenantTabsContainer = () => {
+const TenantTabsContainer = ({tab}:{tab:string}) => {
     //const searchParams = useSearchParams<{tab:string}>(undefined)
     //alert(searchParams)
-    const [value, setValue] = useState<string>("1");
+    const [value, setValue] = useState<string>(tab||"1");
     //Load All Listings and Requests from data context...
     const dataContext = useContext(DataContext);
 

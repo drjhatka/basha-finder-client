@@ -50,7 +50,7 @@ const RentalRequestCreateForm = () => {
        const res =await createRequest(newRequest)
         console.log(res)
       toast.success("Rental request submitted successfully!");
-      //router.push('/tenant-dashboard?tab=2')
+      router.push('/tenant-dashboard?tab=2')
       resetForm();
     } catch (error) {
       toast.error("Failed to submit request.");
