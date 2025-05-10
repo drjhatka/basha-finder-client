@@ -8,7 +8,7 @@
 platform to advertise their rental units to potential tenants. From exploring the right rental to making the final deal with the landlord, Rentopia makes it a smooth experience all along the way. Additionally Landlords are provided a professional dashboard for all their the backend stuffs.</p>
 
 
-<div style="width:50%; margin: 0 auto;">
+<div style="width:'50%'; margin: 0 auto;">
 | Project          | Live Site               | API               |
 |------------------|--------------------|-------------------|
 | 🛍️ Rentopia    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) |
