@@ -52,7 +52,7 @@ platform to advertise their rental units to potential tenants. From exploring th
 ### Steps
 1. Clone repo:
    ```bash
-   git clone https://github.com/your-repo/property-mgmt.git
+   https://github.com/drjhatka/basha-finder-client.git
    cd property-mgmt
   
 
