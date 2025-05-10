@@ -31,12 +31,12 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 | Category       | Technology       | Version |
 |----------------|------------------|---------|
-| **Frontend**   | React            | 18.2    |
+| **Frontend**   | NextJs            | 18.2    |
 | **Backend**    | Node.js          | 20.5    |
-| **Database**   | PostgreSQL       | 15.3    |
-| **Auth**       | Firebase Auth    | 9.22    |
+| **Database**   | MongoDB      | 15.3    |
+| **Auth**       | NextAuth       | 9.22    |
 | **Payments**   | Stripe API       | 12.0    |
-| **Deployment** | Docker           | 24.0    |
+| **Deployment** | Vercel           | 24.0    |
 
 ![Tech Stack](https://img.shields.io/badge/tech-stack-informational)
 
@@ -53,7 +53,8 @@ platform to advertise their rental units to potential tenants. From exploring th
 1. Clone repo:
    ```bash
    https://github.com/drjhatka/basha-finder-client.git
-   cd property-mgmt
+   cd basha-finder-client
+   npm install
   
 
 
