@@ -50,10 +50,14 @@ platform to advertise their rental units to potential tenants. From exploring th
 - Stripe CLI (for payment testing)
 
 ### Steps
-1. Clone repo:
+1. Clone repo & Install npm:
    ```bash
    https://github.com/drjhatka/basha-finder-client.git
    cd basha-finder-client
+   npm install
+
+2. Set Up .env variables
+      ```bash
 
   
 
