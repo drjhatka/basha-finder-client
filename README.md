@@ -9,6 +9,6 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 
 
-| Project          | Demo               | API               |
+| Project          | Live Site               | API               |
 |------------------|--------------------|-------------------|
-| 🛍️ E-Commerce    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) |
+| 🛍️ Rentopia    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) |
