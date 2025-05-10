@@ -9,8 +9,6 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 
 
-| Project Name         | Demo               | API               | 
-|------------------|--------------------|-------------------|----------------|
-| 🛍️ Rentopia    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) | 
-| ✅ Task Manager  | [🌐 Visit](https://task.example.com) | [⚙️ API](https://api.task.com) |
-| 💬 Social Network| [🌐 Visit](https://social.example.com) | [⚙️ API](https://api.social.com) |
+| Project          | Demo               | API               |
+|------------------|--------------------|-------------------|
+| 🛍️ E-Commerce    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) |
