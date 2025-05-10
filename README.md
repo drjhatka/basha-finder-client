@@ -18,6 +18,7 @@ platform to advertise their rental units to potential tenants. From exploring th
 ### 🏢 **Tenants**
 - Search and explore thousands of rental listings.
 - Find rentals based on **location**, **rent range** and many other filters.
+- Get Customized notification for rentals near your location.
 - Decide based on the **ratings** of landlords provided by the existing customers.
 - Pay and Finalize rentals based on Landlords approval.
 
@@ -25,6 +26,8 @@ platform to advertise their rental units to potential tenants. From exploring th
 - Post Rentals to get the best deal for your property.
 - Connect with potential tenants 
 - Approve and finalize deal and get paid through our platform
-- 
+  
+
+
 
 
