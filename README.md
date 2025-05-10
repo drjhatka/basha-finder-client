@@ -56,8 +56,9 @@ platform to advertise their rental units to potential tenants. From exploring th
    cd basha-finder-client
    npm install
 
-2. Set Up .env variables
+2. Edit and rename Up .env_example variables
       ```bash
+      NEXT_PUBLIC_DB_URL=yourDatabaseURL
 
   
 
