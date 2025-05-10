@@ -26,6 +26,34 @@ platform to advertise their rental units to potential tenants. From exploring th
 - Post Rentals to get the best deal for your property.
 - Connect with potential tenants 
 - Approve and finalize deal and get paid through our platform
+
+## 🛠️ Technologies Used
+
+| Category       | Technology       | Version |
+|----------------|------------------|---------|
+| **Frontend**   | React            | 18.2    |
+| **Backend**    | Node.js          | 20.5    |
+| **Database**   | PostgreSQL       | 15.3    |
+| **Auth**       | Firebase Auth    | 9.22    |
+| **Payments**   | Stripe API       | 12.0    |
+| **Deployment** | Docker           | 24.0    |
+
+![Tech Stack](https://img.shields.io/badge/tech-stack-informational)
+
+---
+
+## 🏠 Local Installation Guide
+
+### Prerequisites
+- Node.js ≥18.x
+- MongoDB ≥15.x
+- Stripe CLI (for payment testing)
+
+### Steps
+1. Clone repo:
+   ```bash
+   git clone https://github.com/your-repo/property-mgmt.git
+   cd property-mgmt
   
 
 
