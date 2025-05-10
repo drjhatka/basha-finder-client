@@ -15,13 +15,13 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 ## ✨ Core Features
 
-### 🚀 **Tenants**
+### 🏢 **Tenants**
 - Search and explore thousands of rental listings
 - Find rentals based on location, rent range and many other filters
 - Decide based on the **ratings** of landlords provided by the existing customers 
 - 
 
-### 🛡️ **Landlords**
+### 👔 **Landlords**
 - **OAuth 2.0** authentication with JWT refresh tokens
 - Automated vulnerability scanning with `npm audit` & Dependabot
 - Rate-limited APIs (1000 req/min per IP)
