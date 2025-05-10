@@ -27,7 +27,7 @@ platform to advertise their rental units to potential tenants. From exploring th
 - Connect with potential tenants 
 - Approve and finalize deal and get paid through our platform
 
-## 🛠️ Technologies Used
+## 🛠️ ![Tech Stack](https://img.shields.io/badge/tech-stack-informational)
 
 | Category       | Technology       | Version |
 |----------------|------------------|---------|
@@ -38,7 +38,7 @@ platform to advertise their rental units to potential tenants. From exploring th
 | **Payments**   | Stripe API       | 12.0    |
 | **Deployment** | Vercel           | 24.0    |
 
-![Tech Stack](https://img.shields.io/badge/tech-stack-informational)
+
 
 ---
 
