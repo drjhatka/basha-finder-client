@@ -9,8 +9,8 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 
 
-
-|----------|-----|
-| [Live Site](https://i.ibb.co/VpmzTGZT/logo.jpg)   | 25  |
-| Bob      | 30  | Designer     |
-| Charlie  | 35  | Data Scientist |
+| Project Name         | Demo               | API               | 
+|------------------|--------------------|-------------------|----------------|
+| 🛍️ Rentopia    | [🌐 Visit](https://i.ibb.co/VpmzTGZT/logo.jpg) | [⚙️ API](https://api.example.com) | 
+| ✅ Task Manager  | [🌐 Visit](https://task.example.com) | [⚙️ API](https://api.task.com) |
+| 💬 Social Network| [🌐 Visit](https://social.example.com) | [⚙️ API](https://api.social.com) |
