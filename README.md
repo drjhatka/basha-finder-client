@@ -9,8 +9,8 @@ platform to advertise their rental units to potential tenants. From exploring th
 
 
 
-| Name     | Age | Occupation   |
-|----------|-----|--------------|
-| [Live Site](https://i.ibb.co/VpmzTGZT/logo.jpg)   | 25  | Developer    |
+
+|----------|-----|
+| [Live Site](https://i.ibb.co/VpmzTGZT/logo.jpg)   | 25  |
 | Bob      | 30  | Designer     |
 | Charlie  | 35  | Data Scientist |
