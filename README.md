@@ -59,6 +59,17 @@ platform to advertise their rental units to potential tenants. From exploring th
 2. Edit and rename Up .env_example variables
       ```bash
       NEXT_PUBLIC_DB_URL=yourDatabaseURL
+      
+## 🚧 Major Challenges
+1. Rent Payment Synchronization
+Issue: Timezone differences caused late fee calculation errors
+
+Solution: Implemented UTC timestamps with tenant-localized displays
+
+2. Maintenance Request Floods
+Issue: Spam requests during system launch
+
+Fix: Added rate-limiting (max 5 requests/tenant/day)
 
   
 
