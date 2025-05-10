@@ -54,8 +54,7 @@ platform to advertise their rental units to potential tenants. From exploring th
    ```bash
    https://github.com/drjhatka/basha-finder-client.git
    cd basha-finder-client
-2. install npm ```bash
-   npm install
+
   
 
 
